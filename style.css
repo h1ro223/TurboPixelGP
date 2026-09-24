@@ -183,13 +183,34 @@ img, canvas { image-rendering: pixelated; image-rendering: crisp-edges; -webkit-
   background: #1f1848; box-shadow: inset 0 0 0 2px #3c3378;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
-.course-card canvas { width: 100%; max-width: 128px; aspect-ratio: 1; }
+.course-card canvas { width: 100%; max-width: 96px; aspect-ratio: 1; }
 .course-card .c-jp { font-size: 14px; }
 .course-card .c-en { font-family: var(--en); font-size: 7px; opacity: 0.7; letter-spacing: 0.05em; }
 .course-card:hover, .course-card:focus { box-shadow: inset 0 0 0 2px var(--cream); background: #2e2470; }
 .course-card.sel { background: var(--yellow); color: var(--ink); box-shadow: inset 0 0 0 3px #fff3a0; }
 .course-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
 .course-opts .btn { font-size: 15px; }
+
+/* カップ */
+.cup-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.cup-card {
+  position: relative; border: 0; cursor: pointer; outline: none; padding: 12px 12px 14px;
+  background: #1f1848; box-shadow: inset 0 0 0 2px #3c3378, inset 0 -6px 0 var(--cc);
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px; text-align: left; color: var(--cream);
+}
+.cup-card:hover, .cup-card:focus { background: #2e2470; box-shadow: inset 0 0 0 2px var(--cream), inset 0 -6px 0 var(--cc); }
+.cup-card.sel { background: #2e2470; box-shadow: inset 0 0 0 3px var(--cc), inset 0 -6px 0 var(--cc); }
+.cup-card.sel .cup-name { color: var(--cc); }
+.cup-name { font-size: 22px; line-height: 1.1; }
+.cup-name small { display: block; font-family: var(--en); font-size: 9px; opacity: 0.75; margin-top: 4px; }
+.cup-minis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.cup-minis canvas { width: 100%; aspect-ratio: 1; background: rgba(0, 0, 0, 0.3); }
+.cup-courses { font-size: 12px; opacity: 0.85; line-height: 1.5; }
+.cup-card .tr { position: absolute; right: 10px; top: 10px; width: 24px; height: 28px; }
+.cup-head { grid-column: 1 / -1; font-size: 15px; color: var(--cc); padding: 2px 2px 0; display: flex; align-items: baseline; gap: 8px; }
+.cup-head small { font-family: var(--en); font-size: 8px; opacity: 0.7; }
+.cup-head:not(:first-child) { margin-top: 6px; }
+.tro-cup { margin: 10px 0 6px; font-size: 14px; font-weight: normal; color: var(--cc); }
 
 /* 設定 */
 .opts { display: grid; gap: 8px; }
@@ -420,6 +441,7 @@ input[type="range"]:focus::-webkit-slider-thumb { background: var(--pink); }
   .char-prev p { min-height: 0; }
   .char-prev .stats { grid-column: 1 / 3; }
   .course-grid { grid-template-columns: repeat(2, 1fr); }
+  .cup-list { grid-template-columns: 1fr; }
   .howto { grid-template-columns: 1fr; }
   .tro-list { grid-template-columns: repeat(2, 1fr); }
   .screen.side { justify-content: center; padding-left: calc(14px + var(--sal)); }
@@ -434,7 +456,14 @@ input[type="range"]:focus::-webkit-slider-thumb { background: var(--pink); }
   .char-layout { grid-template-columns: 1fr 210px; }
   .char-prev canvas { width: 96px; height: 96px; }
   .char-prev p { font-size: 12px; margin-bottom: 6px; }
-  .course-card canvas { max-width: 80px; }
+  .course-card canvas { max-width: 54px; }
+  .course-card { padding: 5px 3px 6px; }
+  .course-card .c-en { display: none; }
+  .course-grid { grid-template-columns: repeat(8, 1fr); gap: 5px; }
+  .course-card .c-jp { font-size: 11px; line-height: 1.2; }
+  .cup-head { display: none; }
+  .cup-minis canvas { max-width: 64px; }
+  .cup-name { font-size: 18px; }
   .desc-box { margin-top: 8px; padding: 6px 10px; font-size: 13px; min-height: 0; }
   .res-row { padding-top: 1px; padding-bottom: 1px; }
   .res-row img { width: 26px; height: 26px; }
@@ -454,6 +483,12 @@ input[type="range"]:focus::-webkit-slider-thumb { background: var(--pink); }
   .char-card img { width: 52px; height: 52px; }
   .char-card { font-size: 12px; }
   .course-opts { grid-template-columns: 1fr; }
+  .course-grid { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  .course-card { padding: 5px 2px 6px; }
+  .course-card canvas { max-width: 64px; }
+  .course-card .c-en { display: none; }
+  .course-card .c-jp { font-size: 10px; line-height: 1.2; }
+  .course-opts .btn { padding-top: 6px; padding-bottom: 6px; font-size: 13px; }
   .menu-row { grid-template-columns: 1fr; }
   .tc-btns { transform: scale(0.85); transform-origin: right bottom; }
 }

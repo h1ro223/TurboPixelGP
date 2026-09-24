@@ -113,6 +113,19 @@
       </div>
     </section>
 
+    <!-- カップ（グランプリ） -->
+    <section id="scr-cup" class="screen">
+      <div class="panel wide">
+        <h2 id="cup-title">カップをえらぶ</h2>
+        <div id="cup-list" class="cup-list"></div>
+        <p id="cup-desc" class="desc-box"></p>
+        <div class="btn-row">
+          <button class="btn back" data-act="back">もどる</button>
+          <button class="btn big go" data-act="cup-ok">スタート</button>
+        </div>
+      </div>
+    </section>
+
     <!-- コース -->
     <section id="scr-course" class="screen">
       <div class="panel wide">
@@ -143,6 +156,7 @@
           <div class="opt"><span>ミニマップ</span><button class="btn tog" data-act="opt" data-opt="minimap">ON</button></div>
           <div class="opt"><span>オートアクセル<small>スマホ用</small></span><button class="btn tog" data-act="opt" data-opt="autoAccel">ON</button></div>
           <div class="opt"><span>ジャイロ操作<small>スマホ用</small></span><button class="btn tog" data-act="opt" data-opt="gyro">OFF</button></div>
+          <div class="opt"><span>ふってトリック<small>スマホ用</small></span><button class="btn tog" data-act="opt" data-opt="motionJA">OFF</button></div>
         </div>
         <p id="opt-note" class="note"></p>
         <div class="btn-row">
@@ -181,7 +195,11 @@
             <dl class="tech">
               <dt>ドリフト＆ミニターボ</dt><dd>ハンドルを切りながらドリフトボタンを押しっぱなし。火花が<span class="c1">青</span>→<span class="c2">オレンジ</span>→<span class="c3">むらさき</span>に変わったら離すと加速！内側にハンドルを切るとたまるのが速い。</dd>
               <dt>ロケットスタート</dt><dd>カウントの「1」が出た直後にアクセル。早すぎるとエンストするよ。（オートアクセル中はDRIFTボタン）</dd>
-              <dt>ジャンプトリック</dt><dd>ジャンプ台で飛んだ直後にドリフトボタンで着地のときに加速。</dd>
+              <dt>ジャンプトリック</dt><dd>ジャンプ台で飛んだ直後にドリフトボタン（スマホはスマホを振ってもOK）で、着地のときに加速。</dd>
+              <dt>カイトで滑空</dt><dd>青いジャンプ台に乗るとカイトが開いて大空を飛ぶ。ハンドルで左右に動いて、空中のリングをくぐると加速！滑空中もトリックできる。</dd>
+              <dt>水中</dt><dd>道が海にもぐる区間は、ふわっと高く跳ねてハンドルが少し重くなる。</dd>
+              <dt>無重力ゾーン</dt><dd>宇宙コースの紫のゾーンでは、ジャンプがとても高く長くなる。</dd>
+              <dt>横風・バンパー・動く障害物</dt><dd>横風は左右に押し流してくる。ネオン街のバンパーは強くはじき返す。フグ・ロボ・隕石に当たるとスピン！</dd>
               <dt>ダッシュパネル</dt><dd>黄色い矢印のパネルを踏むと一気に加速。</dd>
               <dt>コースアウト</dt><dd>海や溶岩に落ちるとタイムロス。オフロードは大きく減速する。</dd>
             </dl>
