@@ -177,13 +177,13 @@ img, canvas { image-rendering: pixelated; image-rendering: crisp-edges; -webkit-
 .stat u { background: #2d2560; }
 
 /* コース */
-.course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .course-card {
   border: 0; padding: 8px 6px 10px; cursor: pointer; outline: none;
   background: #1f1848; box-shadow: inset 0 0 0 2px #3c3378;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
-.course-card canvas { width: 100%; max-width: 96px; aspect-ratio: 1; }
+.course-card canvas { width: 100%; max-width: 74px; aspect-ratio: 1; }
 .course-card .c-jp { font-size: 14px; }
 .course-card .c-en { font-family: var(--en); font-size: 7px; opacity: 0.7; letter-spacing: 0.05em; }
 .course-card:hover, .course-card:focus { box-shadow: inset 0 0 0 2px var(--cream); background: #2e2470; }
@@ -211,6 +211,11 @@ img, canvas { image-rendering: pixelated; image-rendering: crisp-edges; -webkit-
 .cup-head small { font-family: var(--en); font-size: 8px; opacity: 0.7; }
 .cup-head:not(:first-child) { margin-top: 6px; }
 .tro-cup { margin: 10px 0 6px; font-size: 14px; font-weight: normal; color: var(--cc); }
+
+#course-grid.no-special .special, #course-grid.no-special .special-head { display: none; }
+.course-card.special { box-shadow: inset 0 0 0 2px #ff8a2a; }
+.course-card.special.sel { box-shadow: inset 0 0 0 3px #fff3a0; }
+.btn:disabled { opacity: 0.6; cursor: default; }
 
 /* 設定 */
 .opts { display: grid; gap: 8px; }
@@ -446,6 +451,15 @@ input[type="range"]:focus::-webkit-slider-thumb { background: var(--pink); }
   .tro-list { grid-template-columns: repeat(2, 1fr); }
   .screen.side { justify-content: center; padding-left: calc(14px + var(--sal)); }
 }
+@media (max-height: 820px) and (min-width: 700px) {
+  .course-grid { grid-template-columns: repeat(10, 1fr); gap: 5px; }
+  .cup-head { display: none; }
+  .course-card { padding: 6px 3px 8px; }
+  .course-card canvas { max-width: 72px; }
+  .course-card .c-en { display: none; }
+  .course-card .c-jp { font-size: 11px; line-height: 1.25; }
+  .course-card canvas { max-width: 64px; }
+}
 @media (max-height: 520px) and (orientation: landscape) {
   .panel { padding: 12px 14px; }
   .panel h2 { margin-bottom: 8px; font-size: 17px; }
@@ -462,6 +476,7 @@ input[type="range"]:focus::-webkit-slider-thumb { background: var(--pink); }
   .course-grid { grid-template-columns: repeat(8, 1fr); gap: 5px; }
   .course-card .c-jp { font-size: 11px; line-height: 1.2; }
   .cup-head { display: none; }
+  .course-grid { grid-template-columns: repeat(10, 1fr); }
   .cup-minis canvas { max-width: 64px; }
   .cup-name { font-size: 18px; }
   .desc-box { margin-top: 8px; padding: 6px 10px; font-size: 13px; min-height: 0; }

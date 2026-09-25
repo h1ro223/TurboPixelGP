@@ -189,6 +189,24 @@ const THEMES = {
     props: [['cone', 1]], dust: ['#5a4a7a', '#8a6ad0', '#38d6ff'], mini: '#ffe6ff', miniOut: '#5a1a7a',
     hills: 'city', weather: 'rain', night: true, splash: ['#38d6ff', '#8a6ad0', '#ffffff'], chasm: 'canal',
   },
+  fort: {
+    sky: ['#2a1c4a', '#5a2f6a', '#a24a6a', '#e2785a', '#ffc27a'], fog: '#d8a08c', sun: '#ffe0a0',
+    outer: 'crag', off: 'grating', road: 'metal', curbA: '#ffd23f', curbB: '#2a2440',
+    edge: '#ffd23f', center: null, wall: '#5a5060', boundary: 'wall',
+    wallDeco: 'rail', wallGap: 14, wallOff: 3,
+    scenery: [['gear', 3], ['stack', 3], ['crate', 2]], sceneryMin: 10, sceneryRange: 150,
+    props: [['crate', 1]], dust: ['#6a6070', '#8a8090', '#b0a8b8'], mini: '#fff0d8', miniOut: '#4a3a5a',
+    hills: 'ridge', weather: null, night: false, splash: ['#ffd23f', '#ffffff', '#b0a8b8'], chasm: 'grating',
+  },
+  mountain: {
+    sky: ['#2f78d8', '#4f98ec', '#80bcff', '#b8dcff', '#e4f4ff'], fog: '#cfe6fa', sun: '#fff6c8',
+    outer: 'grass', off: 'grassOff', road: 'asphalt', curbA: '#f4f4f4', curbB: '#e0383d',
+    edge: '#e8e8e8', center: '#f2d24b', wall: '#8a8490', boundary: 'wall',
+    wallDeco: 'fencepost', wallGap: 18, wallOff: 3,
+    scenery: [['tree', 4], ['pine', 4], ['bush', 2]], sceneryMin: 10, sceneryRange: 150,
+    props: [['rock', 1]], dust: ['#6d9a3c', '#92b85a', '#c9d88a'], mini: '#e9f1ff', miniOut: '#2c5a2a',
+    hills: 'snow', weather: null, night: false, splash: ['#9fe3ff', '#ffffff', '#4fb4e8'], chasm: 'water',
+  },
   galaxy: {
     sky: ['#02010a', '#07041a', '#10082e', '#1d0c44', '#2e1060'], fog: '#1a0a3a', sun: '#ffffff',
     outer: 'space', off: 'nebula', road: 'starroad', curbA: '#ffffff', curbB: '#ff5fd2', rainbow: true,
@@ -282,6 +300,61 @@ const COURSES = [
     desc: '星の海をかける最終コース。無重力ゾーンで大ジャンプ、宇宙カイトで星をこえろ！',
   },
 ];
+
+// スペシャルコース（高低差あり・1周だけの超ロングコース）
+COURSES.push({
+  id: 'dragon', name: 'ドラゴンマウンテン', en: 'DRAGON MOUNTAIN', theme: 'mountain', roadW: 60, offW: 26, music: 'dragon',
+  special: true, size: 2048, laps: 1, sections: 3,
+  pts: [[300, 1850], [650, 1885], [1000, 1860], [1300, 1790], [1600, 1850], [1850, 1800], [1930, 1650], [1820, 1560], [1500, 1570], [1260, 1520], [1230, 1400], [1400, 1350], [1700, 1370], [1900, 1300], [1920, 1170], [1780, 1110], [1450, 1130], [1250, 1060], [1260, 930], [1450, 880], [1750, 900], [1920, 800], [1900, 600], [1720, 470], [1640, 330], [1660, 190], [1540, 100], [1150, 120], [800, 160], [480, 180], [260, 260], [180, 450], [330, 600], [600, 620], [860, 700], [1000, 880], [900, 1060], [640, 1100], [420, 1030], [230, 1120], [180, 1330], [350, 1480], [650, 1450], [900, 1540], [860, 1700], [560, 1720], [330, 1680], [200, 1750]],
+  // 高低差（周回位置f, 高さ）。直線でつないでからなめらかにする
+  elev: [[0, 0], [0.065, 0], [0.098, 8], [0.110, 24], [0.119, 6], [0.14, 8], [0.151, 12], [0.192, 32], [0.225, 48], [0.266, 70], [0.297, 88], [0.339, 106], [0.370, 122], [0.413, 144], [0.448, 166], [0.486, 192], [0.502, 206], [0.53, 220], [0.556, 226], [0.595, 186], [0.611, 178], [0.649, 160], [0.69, 132], [0.703, 144], [0.712, 124], [0.735, 106], [0.777, 84], [0.815, 64], [0.845, 46], [0.853, 52], [0.862, 34], [0.904, 24], [0.92, 14], [0.94, 4], [0.952, 10], [0.96, 0], [0.975, 0]],
+  // 道の外の地形の険しさ（周回位置f, 傾き）
+  terrain: [[0, 0.28], [0.12, 0.35], [0.16, 1.0], [0.44, 1.1], [0.5, 0.7], [0.6, 0.75], [0.8, 0.55], [0.92, 0.3], [1, 0.28]],
+  river: [[905, 2080], [880, 1870], [1000, 1760], [1070, 1640], [1120, 1500], [1070, 1360], [1060, 1250]],
+  lake: { x: 1080, y: 1200, r: 64 },
+  scenery: [[0, [['house', 5], ['tree', 3], ['bush', 2], ['flag', 1]]], [0.15, [['pine', 5], ['tree', 3], ['rock', 2]]], [0.42, [['pine', 4], ['rock', 3], ['snowman', 1], ['crystal', 1]]], [0.6, [['pine', 4], ['tree', 3], ['rock', 1]]], [0.88, [['house', 4], ['tree', 3], ['bush', 2]]]],
+  items: [0.035, 0.17, 0.305, 0.44, 0.535, 0.665, 0.795, 0.93],
+  boosts: [{ f: 0.178, d: 0 }, { f: 0.392, d: 0 }, { f: 0.615, d: -13 }, { f: 0.625, d: 13 }, { f: 0.885, d: 0 }],
+  ramps: [{ f: 0.262, d: 14, w: 24 }, { f: 0.79, d: -13, w: 24 }], gaps: [], ice: [], pools: [],
+  glides: [{ f: 0.558, len: 330 }],
+  desc: '【スペシャル・1周のみ】村から山頂へのぼり、カイトで谷をこえて一気にくだる超ロングコース。坂と丘のジャンプに注意！',
+});
+
+// スペシャルコース2：ギアフォートレス（ベルトコンベア・大砲・らせん塔・ショートカット）
+COURSES.push({
+  id: 'gear', name: 'ギアフォートレス', en: 'GEAR FORTRESS', theme: 'fort', roadW: 60, offW: 18, music: 'fort',
+  special: true, size: 3072, laps: 1, sections: 3, snowLine: 290,
+  pts: (() => {
+    const CX = 1150, CY = 1050, cp = [620, 540];
+    let vx = CX - cp[0], vy = CY - cp[1];
+    const l = Math.hypot(vx, vy); vx /= l; vy /= l;
+    const th0 = Math.atan2(-vx, vy), b = 150 / (2 * Math.PI), sp = [];
+    for (let th = 0; th <= 3 * 2 * Math.PI + 1e-6; th += 0.5) { const r = 115 + b * th, a = th0 + th; sp.push([Math.round(CX + Math.cos(a) * r), Math.round(CY + Math.sin(a) * r)]); }
+    const last = sp[sp.length - 1];
+    return [[520, 2880], [900, 2900], [1300, 2880], [1650, 2800], [1760, 2640], [1600, 2520], [1200, 2500], [800, 2470], [560, 2330], [640, 2170], [1000, 2150], [1400, 2170], [1800, 2230], [2150, 2380], [2500, 2550], [2850, 2560], [2950, 2380], [2800, 2200], [2450, 2140], [2250, 2000],
+      [2350, 1840], [2700, 1830], [2930, 1700], [2880, 1520], [2600, 1480], [2330, 1420], [2280, 1250], [2500, 1170], [2800, 1150], [2950, 1000], [2880, 820], [2600, 780], [2350, 700], [2330, 520], [2560, 430], [2850, 380], [2930, 220], [2750, 120], [2400, 130], [2000, 150], [1500, 140], [1000, 130], [560, 150], [300, 260], [260, 430], [400, 520],
+      cp, ...sp, [last[0] + 330, last[1] + 120], [1980, 1000], [1960, 1350], [1820, 1640], [1500, 1850], [1000, 1880], [640, 1850], [330, 1900], [180, 2100], [220, 2400], [180, 2650], [260, 2850]];
+  })(),
+  elev: [[0, 0], [0.018, 0], [0.032, 30], [0.046, 30], [0.05, 34], [0.056, 10], [0.08, 6], [0.09, -12], [0.104, -12], [0.113, 4], [0.13, 36], [0.15, 42], [0.168, 42], [0.174, 58], [0.182, 36], [0.205, 24], [0.248, 40], [0.281, 90], [0.319, 140], [0.349, 180], [0.387, 230], [0.416, 262], [0.43, 270], [0.436, 286], [0.444, 262], [0.46, 290], [0.475, 300], [0.482, 318], [0.49, 296], [0.505, 306], [0.53, 326], [0.547, 336], [0.556, 336], [0.583, 252], [0.826, 70], [0.845, 62], [0.855, 62], [0.862, 80], [0.87, 60], [0.90, 42], [0.92, 30], [0.935, 30], [0.942, 46], [0.95, 26], [0.975, 4], [1, 0]],
+  terrain: [[0, 0.18], [0.21, 0.25], [0.25, 0.9], [0.42, 0.8], [0.55, 0.4], [0.83, 0.3], [0.9, 0.2], [1, 0.18]],
+  scenery: [[0, [['stack', 3], ['gear', 3], ['crate', 3], ['lamp', 1]]], [0.21, [['pine', 5], ['rock', 3], ['gear', 1]]], [0.415, [['pine', 3], ['rock', 3], ['banner', 2], ['snowman', 1]]], [0.55, [['banner', 3], ['torch', 3], ['gear', 2], ['crate', 1]]], [0.83, [['stack', 3], ['gear', 3], ['crate', 3]]]],
+  items: [0.025, 0.10, 0.19, 0.27, 0.345, 0.42, 0.505, 0.61, 0.68, 0.76, 0.855, 0.93],
+  boosts: [{ f: 0.124, d: 0 }, { f: 0.293, d: -12 }, { f: 0.30, d: 12 }, { f: 0.366, d: 0 }, { f: 0.456, d: 0 }, { f: 0.536, d: 0 }, { f: 0.645, d: 12 }, { f: 0.72, d: -12 }, { f: 0.80, d: 0 }, { f: 0.885, d: 0 }],
+  ramps: [{ f: 0.098, d: 0, w: 26 }, { f: 0.695, d: -12, w: 22 }], gaps: [], ice: [], pools: [],
+  cannons: [{ f: 0.5475, to: 0.585 }],
+  belts: [
+    { f: 0.006, len: 330, lanes: [{ d0: -30, d1: 0, v: 75 }, { d0: 0, d1: 30, v: -55 }] },
+    { f: 0.068, len: 300, lanes: [{ d0: -30, d1: 0, v: -55 }, { d0: 0, d1: 30, v: 75 }] },
+    { f: 0.146, len: 340, lanes: [{ d0: -30, d1: -10, v: 85 }, { d0: -10, d1: 10, v: -60 }, { d0: 10, d1: 30, v: 85 }] },
+    { f: 0.905, len: 320, lanes: [{ d0: -30, d1: 0, v: 80 }, { d0: 0, d1: 30, v: -60 }] },
+    { f: 0.958, len: 260, lanes: [{ d0: -30, d1: 0, v: -60 }, { d0: 0, d1: 30, v: 80 }] },
+  ],
+  // side：-1=左側 / 1=右側、need：必要なスピード（最高速に対する割合。1以上はブーストが必要）
+  shortcuts: [{ f: 0.178, side: -1, to: 0.238, need: 0.92 }, { f: 0.388, side: -1, to: 0.444, need: 0.88 }, { f: 0.598, side: -1, to: 0.6666, need: 1.12 }],
+  movers: [{ f: 0.094, amp: 20, period: 2.6, kind: 'robot' }, { f: 0.195, amp: 22, period: 3.0, kind: 'robot' }, { f: 0.468, amp: 22, period: 3.4, kind: 'boulder' }, { f: 0.515, amp: 24, period: 3.0, kind: 'boulder' }],
+  winds: [{ f: 0.448, len: 0.07, force: 50 }],
+  desc: '【スペシャル・1周のみ】工場のベルトコンベア、山の要塞への登り、大砲でらせん塔の頂上へ！ぐるぐる下って工場へ戻る超ロングコース。隠しショートカットもあるぞ。',
+});
 
 // グランプリのカップ
 const CUPS = [
@@ -479,6 +552,8 @@ const AudioSys = (() => {
       case 'ring': seq([88, 93, 100], 'p25', 0.12, 0.045); osc('triangle', 1760, t, 0.2, 0.06); break;
       case 'gust': noise(t, 1.0, 0.18, 'bandpass', 400, null, 900, 0.6); break;
       case 'robot': osc('square', 180, t, 0.1, 0.06, null, 90); break;
+      case 'cannon': noise(t, 0.9, 0.7, 'lowpass', 900, null, 120); osc('sine', 110, t, 0.6, 0.5, null, 35); osc('square', 220, t, 0.12, 0.12, null, 60); break;
+      case 'shortcut': seq([79, 84, 88, 91, 96], 'p25', 0.1, 0.05); break;
       default: break;
     }
   }
@@ -543,6 +618,8 @@ const SONGS = {
   reef: { bpm: 128, root: 67, mode: 'major', prog: [0, 5, 3, 4, 0, 5, 1, 4, 3, 4, 5, 2, 3, 1, 4, 4], lead: 'p50', drum: 'four', bass: 'walk', arp: 'updown', seed: 7711 },
   sky: { bpm: 146, root: 64, mode: 'major', prog: [0, 4, 5, 3, 0, 4, 3, 4, 3, 4, 5, 5, 3, 4, 0, 0], lead: 'p25', drum: 'rock', bass: 'octave', arp: 'up', seed: 8819 },
   neon: { bpm: 158, root: 57, mode: 'minor', prog: [0, 5, 6, 4, 0, 5, 6, 4, 3, 4, 0, 5, 3, 6, 4, 4], lead: 'p12', drum: 'rock', bass: 'drive', arp: 'up', seed: 9923 },
+  fort: { bpm: 154, root: 57, mode: 'minor', prog: [0, 6, 5, 4, 0, 6, 3, 4, 5, 6, 0, 4, 5, 3, 6, 4], lead: 'p12', drum: 'rock', bass: 'drive', arp: 'updown', seed: 12329 },
+  dragon: { bpm: 148, root: 62, mode: 'major', prog: [0, 4, 5, 3, 0, 4, 1, 4, 3, 4, 5, 2, 3, 6, 4, 4], lead: 'p25', drum: 'rock', bass: 'octave', arp: 'updown', seed: 11213 },
   galaxy: { bpm: 150, root: 62, mode: 'minor', prog: [0, 3, 5, 4, 0, 3, 6, 4, 5, 6, 3, 4, 5, 6, 0, 4], lead: 'p25', drum: 'half', bass: 'octave', arp: 'updown', seed: 10037 },
 };
 const songCache = {};
@@ -1296,6 +1373,42 @@ function buildDecoSprites() {
     rect(g, 5, 8, 2, 14, '#8a7aa0');
     poly(g, [6, 0, 7.5, 4, 12, 4, 8.5, 6.5, 10, 11, 6, 8, 2, 11, 3.5, 6.5, 0, 4, 4.5, 4], f ? '#ffe14d' : '#ffffff');
   })), { anim: 0.4, glow: true });
+  /* ---- ドラゴンマウンテン：村 ---- */
+  const house = (wall, roof, seed) => spr(28, 26, (g) => {
+    const r = mulberry32(seed);
+    rect(g, 3, 11, 22, 15, wall); rect(g, 3, 11, 4, 15, shade(wall, 1.12));
+    poly(g, [0, 12, 14, 1, 28, 12], roof); poly(g, [0, 12, 14, 1, 14, 4, 3, 12], shade(roof, 1.2));
+    rect(g, 18, 2, 3, 6, '#6a5a5a');
+    rect(g, 11, 17, 6, 9, '#6a4428'); rect(g, 15, 21, 1, 1, '#ffd23f');
+    rect(g, 5, 15, 4, 4, r() < 0.5 ? '#bfe6ff' : '#ffe07a'); rect(g, 20, 15, 4, 4, '#bfe6ff');
+    rect(g, 5, 17, 4, 1, '#ffffff'); rect(g, 20, 17, 4, 1, '#ffffff');
+  });
+  add('house', 18, [house('#f4e8d0', '#c9504a', 21), house('#e8f0f8', '#3a7ac9', 22), house('#fff0c8', '#5a9a4a', 23)], { vari: true });
+  add('fencepost', 5, spr(6, 10, (g) => {
+    rect(g, 1, 0, 4, 10, '#8a5a3a'); rect(g, 1, 0, 1, 10, '#aa7a50'); rect(g, 0, 3, 6, 2, '#6a4428');
+  }));
+  /* ---- ギアフォートレス ---- */
+  add('gear', 16, [0, 1].map((f) => spr(22, 22, (g) => {
+    const cx = 11, cy = 11;
+    for (let k = 0; k < 8; k++) { const a = (k / 8) * TAU + f * (TAU / 16); rect(g, Math.round(cx + Math.cos(a) * 9) - 2, Math.round(cy + Math.sin(a) * 9) - 2, 4, 4, '#8a7a5a'); }
+    circ(g, cx, cy, 8, '#b09a6a'); circ(g, cx - 1, cy - 1, 6, '#d0b880'); circ(g, cx, cy, 3, '#5a4a3a'); circ(g, cx, cy, 1.5, '#2a2230');
+  })), { anim: 0.25 });
+  add('stack', 40, [0, 1].map((f) => spr(20, 44, (g) => {
+    rect(g, 6, 12, 8, 32, '#7a5a4a'); rect(g, 6, 12, 2, 32, '#9a7a62'); rect(g, 5, 10, 10, 3, '#5a4038');
+    for (let y = 18; y < 44; y += 6) rect(g, 6, y, 8, 1, '#5a4038');
+    circ(g, 10 + f, 6, 4, '#8a8494'); circ(g, 7 - f, 3, 3, '#a8a2b0'); circ(g, 13, 2 + f, 2.5, '#c0bac6');
+  })), { anim: 0.5 });
+  add('crate', 7, spr(12, 11, (g) => {
+    rect(g, 0, 0, 12, 11, '#b07a3a'); rect(g, 0, 0, 12, 2, '#d09a58'); rect(g, 0, 0, 2, 11, '#8a5a2a'); rect(g, 10, 0, 2, 11, '#8a5a2a');
+    rect(g, 0, 9, 12, 2, '#8a5a2a'); poly(g, [2, 2, 4, 2, 10, 9, 8, 9], '#8a5a2a');
+  }));
+  add('banner', 22, [0, 1].map((f) => spr(16, 30, (g) => {
+    rect(g, 2, 0, 2, 30, '#6a6474');
+    poly(g, [4, 2, 15, 3 + f, 14, 9 + f, 15, 15, 4, 14], '#c9384a'); rect(g, 7, 6, 4, 4, '#ffd23f');
+  })), { anim: 0.4 });
+  add('rail', 5, spr(6, 10, (g) => {
+    rect(g, 2, 0, 3, 10, '#6a6474'); rect(g, 2, 0, 1, 10, '#8a8494'); rect(g, 0, 2, 6, 2, '#ffd23f'); rect(g, 0, 6, 6, 1, '#2a2440');
+  }));
   /* ---- バンパー（ネオン） ---- */
   add('bumper', 7, [0, 1].map((f) => spr(18, 14, (g) => {
     g.fillStyle = '#2a1a4a'; g.beginPath(); g.ellipse(9, 10, 8.5, 3.5, 0, 0, TAU); g.fill();
@@ -1366,6 +1479,12 @@ const Gfx = {
         rect(g, 8, 0, 2, 4, '#8a90a2'); rect(g, 7, 0, 4, 1, f ? '#38d6ff' : '#ff3d7f');
         rect(g, 4, 14, 3, 6 - f * 2, '#2a2440'); rect(g, 11, 14, 3, 4 + f * 2, '#2a2440');
         rect(g, 0, 7, 3, 2, '#6a6480'); rect(g, 15, 7, 3, 2, '#6a6480');
+      })),
+      boulder: [0, 1].map((f) => spr(20, 20, (g) => {
+        circ(g, 10, 10, 9, '#7a6a62'); circ(g, 8, 8, 6, '#948478'); circ(g, 7, 6, 2.5, '#b0a094');
+        const a = f * Math.PI / 2;
+        rect(g, Math.round(10 + Math.cos(a) * 5), Math.round(10 + Math.sin(a) * 5), 3, 2, '#5a4a44');
+        rect(g, Math.round(10 - Math.sin(a) * 4), Math.round(10 + Math.cos(a) * 4), 2, 2, '#5a4a44');
       })),
       meteor: [0, 1].map((f) => spr(22, 20, (g) => {
         poly(g, [0, 4 + f, 10, 7, 8, 11, 2, 14 - f], f ? '#ff9d1f' : '#ffd23f');
@@ -1568,6 +1687,23 @@ function matColor(name, x, y) {
       const v = Math.floor(n2 * 10);
       return [40 + v, 26 + v, 86 + v];
     }
+    case 'metal': {
+      if ((x & 31) === 0 || (y & 31) === 0) return [70, 72, 86];
+      if (((x & 31) === 3 || (x & 31) === 28) && ((y & 31) === 3 || (y & 31) === 28)) return [176, 180, 196];
+      if (n > 0.97) return [150, 154, 168];
+      const v = Math.floor(n2 * 8) + (((x >> 5) + (y >> 5)) & 1) * 6;
+      return [108 + v, 112 + v, 126 + v];
+    }
+    case 'grating': {
+      if ((x & 3) === 0 || (y & 3) === 0) return [84, 84, 98];
+      return n < 0.2 ? [24, 22, 32] : [36, 34, 46];
+    }
+    case 'crag': {
+      if (n3 < 0.06 && n < 0.5) return [70, 60, 58];
+      if (n > 0.95) return [150, 136, 128];
+      const v = Math.floor(n2 * 14);
+      return [104 + v, 94 + v, 90 + v];
+    }
     default: return [255, 0, 255];
   }
 }
@@ -1608,9 +1744,10 @@ function buildMips(base, size, levels) {
 }
 
 class Track {
-  constructor(def, mirror) {
+  constructor(def, mirror, lite) {
     this.def = def;
     this.mirror = !!mirror;
+    this.size = def.size || TEX;
     this.theme = THEMES[def.theme];
     this.halfRoad = def.roadW / 2;
     this.curb = 4;
@@ -1618,14 +1755,17 @@ class Track {
     this.boundary = this.theme.boundary;
     this.rnd = mulberry32(hashStr(def.id) + (this.mirror ? 99 : 0));
     this.buildGeometry();
+    if (lite) { this.hasElev = false; this.buildMinimap(); return; } // メニューのミニマップ用（軽量）
+    this.buildElevation();
     this.buildFeatures();
+    this.buildHeightmap();
     this.placeDeco();
     this.buildTexture();
     this.buildSky();
     this.buildMinimap();
   }
   buildGeometry() {
-    const pts = this.def.pts.map((p) => [this.mirror ? TEX - p[0] : p[0], p[1]]);
+    const pts = this.def.pts.map((p) => [this.mirror ? this.size - p[0] : p[0], p[1]]);
     const n = pts.length, dense = [];
     for (let i = 0; i < n; i++) {
       const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
@@ -1661,6 +1801,10 @@ class Track {
     }
     for (let i = 0; i < N; i++) K[i] = wrapAngle(A[(i + 1) % N] - A[i]);
     Object.assign(this, { N, step, len: N * step, X, Y, TX, TY, NX, NY, A, K });
+    // 大砲で飛ぶ区間は「道ではない」
+    this.skipRanges = (this.def.cannons || []).map((c) => ({ s: c.f * this.len, e: c.to * this.len }));
+    this.skip = new Uint8Array(N);
+    this.skipRanges.forEach((r) => { for (let i = 0; i < N; i++) { const s = i * step; if (s >= r.s && s <= r.e) this.skip[i] = 1; } });
   }
   idxOf(s) { const L = this.len; s = ((s % L) + L) % L; return Math.floor(s / this.step) % this.N; }
   pointAt(s, d, out) {
@@ -1679,7 +1823,8 @@ class Track {
     const N = this.N, X = this.X, Y = this.Y;
     let best = 0, bd = Infinity;
     if (full) {
-      for (let i = 0; i < N; i++) { const dx = o.x - X[i], dy = o.y - Y[i], dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; best = i; } }
+      const sk = this.skip;
+      for (let i = 0; i < N; i++) { if (sk && sk[i]) continue; const dx = o.x - X[i], dy = o.y - Y[i], dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; best = i; } }
     } else {
       const h = o.ti | 0;
       for (let k = -26; k <= 26; k++) {
@@ -1696,6 +1841,158 @@ class Track {
   }
   sDelta(s, s0) { const L = this.len; return (((s - s0) % L) + L) % L; }
   sSigned(s, s0) { let d = this.sDelta(s, s0); if (d > this.len / 2) d -= this.len; return d; }
+  // 道の高低差：周回位置ごとの高さを作る（直線補間→なめらかに）
+  buildElevation() {
+    const def = this.def, N = this.N;
+    this.hasElev = !!def.elev;
+    if (!this.hasElev) return;
+    const interp = (E, f) => {
+      let k = 0;
+      while (k < E.length - 1 && E[k + 1][0] <= f) k++;
+      const a = E[k], b = k + 1 < E.length ? E[k + 1] : [1 + E[0][0], E[0][1]];
+      const t = clamp((f - a[0]) / Math.max(1e-6, b[0] - a[0]), 0, 1);
+      return a[1] + (b[1] - a[1]) * t;
+    };
+    const H = new Float32Array(N), KT = new Float32Array(N);
+    for (let i = 0; i < N; i++) { H[i] = interp(def.elev, i / N); KT[i] = interp(def.terrain || [[0, 0.5]], i / N); }
+    {
+      const tmp = Float32Array.from(H);
+      for (let i = 0; i < N; i++) { let sum = 0; for (let j = -3; j <= 3; j++) sum += tmp[(i + j + N) % N]; H[i] = sum / 7; }
+    }
+    const G1 = new Float32Array(N), G2 = new Float32Array(N), st = this.step;
+    for (let i = 0; i < N; i++) {
+      const a = H[(i - 1 + N) % N], b = H[i], c = H[(i + 1) % N];
+      G1[i] = (c - a) / (2 * st); G2[i] = (c - 2 * b + a) / (st * st);
+    }
+    Object.assign(this, { H, G1, G2, KT });
+    if (def.river) this.river = def.river.map((q) => [this.mirror ? this.size - q[0] : q[0], q[1]]);
+    if (def.lake) this.lake = { x: this.mirror ? this.size - def.lake.x : def.lake.x, y: def.lake.y, r: def.lake.r };
+  }
+  // 地形の高さマップ：道は設定どおり、道の外は山がせり上がる。川・湖・谷は低く削る
+  buildHeightmap() {
+    if (!this.hasElev) return;
+    const size = this.size, cs = 8, G = size / cs, N = this.N, X = this.X, Y = this.Y, H = this.H;
+    const idx = new Int32Array(G * G).fill(-1), dist = new Float32Array(G * G).fill(1e9);
+    const cd = (c, i) => { const cx = ((c % G) + 0.5) * cs, cy = (Math.floor(c / G) + 0.5) * cs; return Math.hypot(cx - X[i], cy - Y[i]); };
+    for (let i = 0; i < N; i++) {
+      if (this.skip[i]) continue;
+      const gx = clamp(Math.floor(X[i] / cs), 0, G - 1), gy = clamp(Math.floor(Y[i] / cs), 0, G - 1), c = gy * G + gx;
+      const d = cd(c, i);
+      if (d < dist[c]) { dist[c] = d; idx[c] = i; }
+    }
+    const relax = (c, n) => { const i = idx[n]; if (i < 0) return; const d = cd(c, i); if (d < dist[c]) { dist[c] = d; idx[c] = i; } };
+    for (let pass = 0; pass < 2; pass++) {
+      for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) {
+        const c = y * G + x;
+        if (x > 0) relax(c, c - 1);
+        if (y > 0) { relax(c, c - G); if (x > 0) relax(c, c - G - 1); if (x < G - 1) relax(c, c - G + 1); }
+      }
+      for (let y = G - 1; y >= 0; y--) for (let x = G - 1; x >= 0; x--) {
+        const c = y * G + x;
+        if (x < G - 1) relax(c, c + 1);
+        if (y < G - 1) { relax(c, c + G); if (x < G - 1) relax(c, c + G + 1); if (x > 0) relax(c, c + G - 1); }
+      }
+    }
+    const lim = this.limit, hm = new Float32Array(G * G), trackH = new Float32Array(G * G);
+    const vn = (x, y) => {
+      const ix = Math.floor(x), iy = Math.floor(y), tx = x - ix, ty = y - iy;
+      const sx = tx * tx * (3 - 2 * tx), sy = ty * ty * (3 - 2 * ty);
+      const a = hash2(ix, iy, 71), b = hash2(ix + 1, iy, 71), c = hash2(ix, iy + 1, 71), d = hash2(ix + 1, iy + 1, 71);
+      return (a * (1 - sx) + b * sx) * (1 - sy) + (c * (1 - sx) + d * sx) * sy;
+    };
+    const segD = (px, py, a, b) => {
+      const dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * dx + dy * dy;
+      const t = l2 ? clamp(((px - a[0]) * dx + (py - a[1]) * dy) / l2, 0, 1) : 0;
+      return Math.hypot(px - a[0] - dx * t, py - a[1] - dy * t);
+    };
+    const ravines = this.glides.map((g) => ({ s: g.s - 30, len: g.len + 60 }));
+    for (let c = 0; c < G * G; c++) {
+      const i = idx[c], d = dist[c], hT = H[i];
+      const cx = ((c % G) + 0.5) * cs, cy = (Math.floor(c / G) + 0.5) * cs;
+      let h = hT;
+      if (d > lim + 4) {
+        const e = d - lim - 4;
+        const nz = vn(cx / 56, cy / 56) * 0.7 + vn(cx / 17, cy / 17) * 0.3;
+        h = hT + Math.min(260, e * this.KT[i] * (0.55 + 0.9 * nz));
+      }
+      // 滑空区間の下は深い谷
+      const si = i * this.step;
+      for (let r = 0; r < ravines.length; r++) {
+        const rv = ravines[r], gl = this.glides[r];
+        const onRoad = d <= lim + 4;
+        if (onRoad ? this.sDelta(si, gl.s) < gl.len : (this.sDelta(si, rv.s) < rv.len && d < lim + 80)) {
+          const t = clamp((d - lim - 12) / 68, 0, 1); h = lerp(hT - 95, h, t * t);
+        }
+      }
+      // 川と湖（道の部分は橋として残す）
+      if (d > lim + 2) {
+        if (this.river) {
+          let rd = 1e9;
+          for (let k = 0; k < this.river.length - 1; k++) rd = Math.min(rd, segD(cx, cy, this.river[k], this.river[k + 1]));
+          if (rd < 30) h = lerp(-16, h, clamp((rd - 18) / 12, 0, 1));
+        }
+        if (this.lake) {
+          const ld = Math.hypot(cx - this.lake.x, cy - this.lake.y) - this.lake.r;
+          if (ld < 12) h = lerp(-16, h, clamp(ld / 12, 0, 1));
+        }
+      }
+      hm[c] = h;
+      trackH[c] = hT;
+    }
+    // 道以外をなめらかに
+    for (let pass = 0; pass < 2; pass++) {
+      const tmp = Float32Array.from(hm);
+      for (let y = 1; y < G - 1; y++) for (let x = 1; x < G - 1; x++) {
+        const c = y * G + x;
+        if (dist[c] <= lim + 6) continue;
+        hm[c] = (tmp[c] * 4 + tmp[c - 1] + tmp[c + 1] + tmp[c - G] + tmp[c + G]) / 8;
+      }
+    }
+    // 傾き（岩肌の色付け用）
+    const slope = new Float32Array(G * G);
+    for (let y = 1; y < G - 1; y++) for (let x = 1; x < G - 1; x++) {
+      const c = y * G + x;
+      slope[c] = Math.hypot(hm[c + 1] - hm[c - 1], hm[c + G] - hm[c - G]) / (2 * cs);
+    }
+    const light = new Float32Array(G * G).fill(1);
+    for (let y = 1; y < G - 1; y++) for (let x = 1; x < G - 1; x++) {
+      const c = y * G + x;
+      const lx = (hm[c + 1] - hm[c - 1]) / (2 * cs), ly = (hm[c + G] - hm[c - G]) / (2 * cs);
+      light[c] = clamp(1 + (lx * 0.55 + ly * 0.45) * 0.9, 0.6, 1.22);
+    }
+    Object.assign(this, { hm, hmG: G, hmCell: cs, hmDist: dist, hmSlope: slope, hmLight: light, hmTrackH: trackH });
+  }
+  // 地形の色付け：急斜面は岩肌、山頂付近は雪（ドットのディザで）
+  tintTerrain(data) {
+    const S = this.size, G = this.hmG, cs = this.hmCell, lim = this.limit;
+    const px32 = new Uint32Array(data.buffer);
+    const rockA = pack(126, 116, 124), rockB = pack(104, 96, 108), snowA = pack(240, 246, 255), snowB = pack(212, 226, 244);
+    for (let y = 0; y < S; y++) {
+      const fy = clamp(y / cs - 0.5, 0, G - 1.001), iy = fy | 0, ty = fy - iy;
+      for (let x = 0; x < S; x++) {
+        const fx = clamp(x / cs - 0.5, 0, G - 1.001), ix = fx | 0, tx = fx - ix, c = iy * G + ix;
+        const d = (this.hmDist[c] * (1 - tx) + this.hmDist[c + 1] * tx) * (1 - ty) + (this.hmDist[c + G] * (1 - tx) + this.hmDist[c + G + 1] * tx) * ty;
+        if (d < lim + 6) continue;
+        const h = (this.hm[c] * (1 - tx) + this.hm[c + 1] * tx) * (1 - ty) + (this.hm[c + G] * (1 - tx) + this.hm[c + G + 1] * tx) * ty;
+        if (h < -6 || h < this.hmTrackH[c] - 30) continue; // 川・湖・谷底
+        const sl = this.hmSlope[c];
+        const th = (BAYER[(y & 3) * 4 + (x & 3)] + 0.5) / 16;
+        const snow = clamp((h - (this.def.snowLine || 172)) / 34, 0, 1), rock = clamp((sl - 0.5) / 0.45, 0, 1);
+        const n = hash2(x, y, 5);
+        const o = y * S + x;
+        if (snow > th) px32[o] = n < 0.15 ? snowB : snowA;
+        else if (rock > th) px32[o] = n < 0.3 ? rockB : rockA;
+        // 陰影
+        const lt = this.hmLight[c] * (1 - tx) * (1 - ty) + this.hmLight[c + 1] * tx * (1 - ty) + this.hmLight[c + G] * (1 - tx) * ty + this.hmLight[c + G + 1] * tx * ty;
+        const q = Math.round(lt * 8) / 8;
+        if (q !== 1) {
+          const v = px32[o];
+          const r = Math.min(255, ((v & 255) * q) | 0), gg = Math.min(255, (((v >> 8) & 255) * q) | 0), bb = Math.min(255, (((v >> 16) & 255) * q) | 0);
+          px32[o] = pack(r, gg, bb);
+        }
+      }
+    }
+  }
   buildFeatures() {
     const def = this.def, L = this.len, m = this.mirror ? -1 : 1;
     this.itemRows = def.items.map((f) => f * L);
@@ -1717,12 +2014,22 @@ class Track {
         const dist = g.len * t + 12, v = 140, tt = dist / v, tp = GLIDE_VZ / (GRAVITY * 0.55);
         let z = tt < tp ? GLIDE_VZ * tt - 0.5 * GRAVITY * 0.55 * tt * tt : (GLIDE_VZ * GLIDE_VZ) / (2 * GRAVITY * 0.55) - 2.5 - 14 * Math.max(0, tt - tp - 0.39);
         z = clamp(z, 9, 26);
+        if (this.hasElev) z = clamp(this.heightAt(g.s) + z - this.heightAt(g.s + g.len * t), 9, 80);
         const d = (k % 2 ? 1 : -1) * (gi % 2 ? -1 : 1) * 14 * m;
         const p = this.pointAt(g.s + g.len * t, d);
         this.rings.push({ s: g.s + g.len * t, d, z, x: p.x, y: p.y });
       });
     });
     this.movers = (def.movers || []).map((mv, i) => ({ s: mv.f * L, amp: mv.amp, period: mv.period, kind: mv.kind, ph: i * 1.7 }));
+    // ベルトコンベア：レーンごとに進む向きと速さが違う（+は前へ、-は後ろへ）
+    this.belts = (def.belts || []).map((b) => ({
+      s: b.f * L, len: b.len,
+      lanes: b.lanes.map((ln) => (m > 0 ? { d0: ln.d0, d1: ln.d1, v: ln.v } : { d0: -ln.d1, d1: -ln.d0, v: ln.v })),
+    }));
+    // 大砲：発射台に乗ると塔の頂上まで一気に飛ぶ
+    this.cannons = (def.cannons || []).map((c) => ({ s: c.f * L, to: c.to * L }));
+    // ショートカット：コース脇の隠しジャンプ台。スピードが足りれば先の地点へ飛べる
+    this.shortcuts = (def.shortcuts || []).map((c) => ({ s: c.f * L, d: c.side * (this.halfRoad + this.curb + 7) * m, to: c.to * L, need: c.need || 0.92 }));
     this.bumpers = (def.bumpers || []).map((b) => { const p = this.pointAt(b.f * L, b.d * m); return { s: b.f * L, d: b.d * m, x: p.x, y: p.y, r: 5, lit: 0 }; });
     this.boxes = [];
     this.itemRows.forEach((s) => {
@@ -1740,11 +2047,33 @@ class Track {
     return false;
   }
   isPit(s, d) {
+    for (const r of this.skipRanges) if (s >= r.s && s <= r.e) return true;
     if (this.boundary === 'fall' && Math.abs(d) > this.limit) return true;
     for (const g of this.gaps) if (this.sDelta(s, g.s) < g.len) return true;
     for (const g of this.glides) if (this.sDelta(s, g.s) < g.len) return true;
     for (const p of this.pools) { const ds = this.sSigned(s, p.s), dd = d - p.d; if (ds * ds + dd * dd < p.r * p.r) return true; }
     return false;
+  }
+  heightAt(s) {
+    if (!this.hasElev) return 0;
+    const L = this.len; s = ((s % L) + L) % L;
+    const f = s / this.step, i = Math.floor(f) % this.N, j = (i + 1) % this.N, t = f - Math.floor(f);
+    return this.H[i] + (this.H[j] - this.H[i]) * t;
+  }
+  gradeAt(s) { return this.hasElev ? this.G1[this.idxOf(s)] : 0; }
+  curvHAt(s) { return this.hasElev ? this.G2[this.idxOf(s)] : 0; }
+  hXY(x, y) {
+    if (!this.hasElev) return 0;
+    const G = this.hmG, cs = this.hmCell, hm = this.hm;
+    const fx = clamp(x / cs - 0.5, 0, G - 1.001), fy = clamp(y / cs - 0.5, 0, G - 1.001);
+    const ix = fx | 0, iy = fy | 0, tx = fx - ix, ty = fy - iy, c = iy * G + ix;
+    return (hm[c] * (1 - tx) + hm[c + 1] * tx) * (1 - ty) + (hm[c + G] * (1 - tx) + hm[c + G + 1] * tx) * ty;
+  }
+  beltAt(s, d) {
+    for (const b of this.belts) {
+      if (this.sDelta(s, b.s) < b.len) { for (const ln of b.lanes) if (d >= ln.d0 && d < ln.d1) return ln.v; return 0; }
+    }
+    return 0;
   }
   zoneAt(s) { for (const z of this.zones) if (this.sDelta(s, z.s) < z.len) return z.kind; return null; }
   glideAt(s) { for (const g of this.glides) if (this.sDelta(s, g.s) < g.len) return g; return null; }
@@ -1763,6 +2092,8 @@ class Track {
     const ad = Math.abs(d);
     if (ad <= this.halfRoad) return this.inIce(s, d) ? 3 : 0;
     if (ad <= this.halfRoad + this.curb) return 1;
+    // ショートカット台へ続く隠し通路は減速しない
+    for (const sc of this.shortcuts) { const ds = this.sSigned(s, sc.s); if (ds > -90 && ds < 16 && Math.abs(d - sc.d) < 11) return 1; }
     return 2;
   }
   maxCurv(s, dist) {
@@ -1781,9 +2112,12 @@ class Track {
     for (let k = 0; k < n; k++) sum += this.K[(i0 + k) % this.N];
     return sum;
   }
+  inSkipExact(s) { for (const r of this.skipRanges) if (s >= r.s && s <= r.e) return true; return false; }
+  inSkip(s) { for (const r of this.skipRanges) if (s >= r.s - 30 && s <= r.e + 10) return true; return false; }
   nearTrack(x, y, minD) {
     const m2 = minD * minD;
-    for (let i = 0; i < this.N; i += 2) { const dx = x - this.X[i], dy = y - this.Y[i]; if (dx * dx + dy * dy < m2) return true; }
+    for (let i = 0; i < this.N; i += 2) {
+      if (this.skip[i]) continue; const dx = x - this.X[i], dy = y - this.Y[i]; if (dx * dx + dy * dy < m2) return true; }
     return false;
   }
   nearFeature(s, pad) {
@@ -1792,6 +2126,7 @@ class Track {
     for (const g of this.gaps) if (Math.abs(this.sSigned(s, g.s + g.len / 2)) < pad + 30) return true;
     for (const g of this.glides) if (this.sDelta(s, g.s - 40) < g.len + 80) return true;
     for (const b of this.bumpers) if (Math.abs(this.sSigned(s, b.s)) < pad) return true;
+    for (const sc of this.shortcuts) if (Math.abs(this.sSigned(s, sc.s)) < pad + 20) return true;
     for (const mv of this.movers) if (Math.abs(this.sSigned(s, mv.s)) < pad) return true;
     return false;
   }
@@ -1808,6 +2143,7 @@ class Track {
       const p = {};
       for (let s = 0; s < L; s += th.wallGap) {
         for (const side of [-1, 1]) {
+          if (this.inSkip(s)) continue;
           this.pointAt(s + (side > 0 ? th.wallGap / 2 : 0), side * (this.limit + th.wallOff), p);
           if (this.nearTrack(p.x, p.y, this.limit + th.wallOff - 1)) continue;
           this.deco.push({ t: th.wallDeco, x: p.x, y: p.y, ph: R() * 10 });
@@ -1816,20 +2152,29 @@ class Track {
       }
     }
     const count = Math.round(L / 11);
+    const secScenery = (s) => {
+      const f = s / L, sc = this.def.scenery;
+      if (!sc) return th.scenery;
+      let cur = sc[0][1];
+      for (const e of sc) if (f >= e[0]) cur = e[1];
+      return cur;
+    };
     for (let i = 0; i < count; i++) {
       const s = R() * L, side = R() < 0.5 ? -1 : 1;
+      if (this.inSkip(s)) continue;
       const dist = this.limit + th.sceneryMin + R() * th.sceneryRange;
       const p = this.pointAt(s, side * dist);
-      if (p.x < -120 || p.y < -120 || p.x > TEX + 120 || p.y > TEX + 120) continue;
+      if (p.x < -120 || p.y < -120 || p.x > this.size + 120 || p.y > this.size + 120) continue;
       if (this.nearTrack(p.x, p.y, this.limit + th.sceneryMin - 4)) continue;
-      const t = pick(th.scenery);
+      if (this.hasElev && this.hXY(p.x, p.y) < this.heightAt(s) - 8) continue; // 川・谷の中には置かない
+      const t = pick(secScenery(s));
       this.deco.push({ t, x: p.x, y: p.y, ph: R() * 10 });
       if (th.islands) this.islands.push({ x: p.x, y: p.y, r: t === 'tower' ? 22 : 9 + R() * 8 });
     }
     const pc = Math.round(L / 170);
     for (let i = 0; i < pc; i++) {
       const s = R() * L;
-      if (this.nearFeature(s, 45)) continue;
+      if (this.nearFeature(s, 45) || this.inSkip(s)) continue;
       const side = R() < 0.5 ? -1 : 1;
       const d = side * (this.halfRoad + this.curb + 9 + R() * (this.def.offW - 16));
       const p = this.pointAt(s, d);
@@ -1841,18 +2186,29 @@ class Track {
       this.deco.push({ t: 'bumper', x: b.x, y: b.y, ph: 0, bumper: b });
       this.solids.push({ x: b.x, y: b.y, r: b.r, s: b.s, bumper: b });
     });
+    if (this.hasElev) this.deco.forEach((d) => { d.h = this.hXY(d.x, d.y); });
   }
   buildTexture() {
     const th = this.theme;
-    const c = workCanvas(TEX, TEX), g = c.getContext('2d');
+    const SZ = this.size;
+    const c = workCanvas(SZ, SZ), g = c.getContext('2d');
     const pat = (name) => g.createPattern(materialTile(name), 'repeat');
-    g.fillStyle = pat(th.outer); g.fillRect(0, 0, TEX, TEX);
+    g.fillStyle = pat(th.outer); g.fillRect(0, 0, SZ, SZ);
     g.lineJoin = 'round'; g.lineCap = 'round';
     const tracePath = () => {
       g.beginPath();
-      g.moveTo(this.X[0], this.Y[0]);
-      for (let i = 1; i < this.N; i++) g.lineTo(this.X[i], this.Y[i]);
-      g.closePath();
+      if (!this.skipRanges.length) {
+        g.moveTo(this.X[0], this.Y[0]);
+        for (let i = 1; i < this.N; i++) g.lineTo(this.X[i], this.Y[i]);
+        g.closePath();
+        return;
+      }
+      let pen = false;
+      for (let i = 0; i <= this.N; i++) {
+        const j = i % this.N;
+        if (this.skip[j]) { pen = false; continue; }
+        if (!pen) { g.moveTo(this.X[j], this.Y[j]); pen = true; } else g.lineTo(this.X[j], this.Y[j]);
+      }
     };
     const stroke = (w, style, dash) => { g.lineWidth = w; g.strokeStyle = style; g.setLineDash(dash || []); tracePath(); g.stroke(); g.setLineDash([]); };
     // 島（ビーチ・溶岩）
@@ -1866,6 +2222,17 @@ class Track {
     }
     if (this.boundary === 'wall') stroke(2 * this.limit + 8, th.wall);
     stroke(2 * this.limit, pat(th.off));
+    if (this.river) {
+      const rv = this.river;
+      const trace = () => { g.beginPath(); rv.forEach((q, i) => { if (i === 0) g.moveTo(q[0], q[1]); else g.lineTo(q[0], q[1]); }); };
+      g.lineWidth = 46; g.strokeStyle = '#c9b27a'; g.setLineDash([]); trace(); g.stroke();
+      g.lineWidth = 34; g.strokeStyle = pat('water'); trace(); g.stroke();
+      if (this.lake) {
+        const lk = this.lake;
+        g.fillStyle = '#c9b27a'; g.beginPath(); g.arc(lk.x, lk.y, lk.r + 6, 0, TAU); g.fill();
+        g.fillStyle = pat('water'); g.beginPath(); g.arc(lk.x, lk.y, lk.r, 0, TAU); g.fill();
+      }
+    }
     const cw = 2 * (this.halfRoad + this.curb);
     stroke(cw, th.curbA);
     if (th.rainbow) {
@@ -1879,7 +2246,13 @@ class Track {
       const q = {};
       const n = Math.max(2, Math.ceil(len / this.step));
       g.beginPath();
-      for (let k = 0; k <= n; k++) { this.pointAt(s0 + (k / n) * len, d, q); if (k === 0) g.moveTo(q.x, q.y); else g.lineTo(q.x, q.y); }
+      let pen = false;
+      for (let k = 0; k <= n; k++) {
+        const ss = s0 + (k / n) * len;
+        if (this.skipRanges.length && this.inSkipExact(((ss % this.len) + this.len) % this.len)) { pen = false; continue; }
+        this.pointAt(ss, d, q);
+        if (!pen) { g.moveTo(q.x, q.y); pen = true; } else g.lineTo(q.x, q.y);
+      }
     };
     g.lineWidth = 1.6; g.strokeStyle = th.edge;
     traceOffset(this.halfRoad - 2.5, 0, this.len); g.stroke();
@@ -1933,6 +2306,21 @@ class Track {
         g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
       });
     });
+    // ベルトコンベア
+    this.belts.forEach((b) => {
+      g.fillStyle = '#2e2a36'; fillStrip(b.s, b.len, -this.halfRoad, this.halfRoad);
+      g.lineWidth = 1; g.strokeStyle = '#403a4a';
+      for (let k = 0; k < b.len; k += 5) {
+        const a = this.pointAt(b.s + k, -this.halfRoad + 1), c = this.pointAt(b.s + k, this.halfRoad - 1);
+        g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(c.x, c.y); g.stroke();
+      }
+      const edges = new Set([-this.halfRoad + 1, this.halfRoad - 1]);
+      b.lanes.forEach((ln) => { if (ln.d0 > -this.halfRoad + 1) edges.add(ln.d0); });
+      edges.forEach((d) => {
+        g.lineWidth = 2.5; g.strokeStyle = '#ffd23f'; g.setLineDash([]); traceOffset(d, b.s, b.len); g.stroke();
+        g.strokeStyle = '#1b1440'; g.setLineDash([5, 5]); traceOffset(d, b.s, b.len); g.stroke(); g.setLineDash([]);
+      });
+    });
     // 溶岩だまり
     this.pools.forEach((pl) => {
       const p = this.pointAt(pl.s, pl.d);
@@ -1960,6 +2348,28 @@ class Track {
       g.fillStyle = r.glide ? '#ff5fd2' : '#ffe14d';
       for (let yy = -r.w / 2 + 4; yy < r.w / 2 - 3; yy += 9) { g.beginPath(); g.moveTo(-3, yy); g.lineTo(3, yy + 2.5); g.lineTo(-3, yy + 5); g.closePath(); g.fill(); }
     }));
+    // 大砲の発射台
+    this.cannons.forEach((cn) => local(cn.s - 9, 0, () => {
+      const w = this.def.roadW + this.curb * 2;
+      g.fillStyle = '#1b1440'; g.fillRect(-10, -w / 2, 20, w);
+      g.fillStyle = '#c9384a'; g.fillRect(-8, -w / 2 + 2, 16, w - 4);
+      g.fillStyle = '#ffd23f';
+      for (let yy = -w / 2 + 6; yy < w / 2 - 6; yy += 12) { g.beginPath(); g.moveTo(-5, yy); g.lineTo(5, yy + 4); g.lineTo(-5, yy + 8); g.closePath(); g.fill(); }
+      g.strokeStyle = '#ffffff'; g.lineWidth = 1.5; g.strokeRect(-8, -w / 2 + 2, 16, w - 4);
+    }));
+    // ショートカット台（紫）と、そこへ続く隠し通路
+    this.shortcuts.forEach((sc) => {
+      g.fillStyle = pat('metal');
+      fillStrip(sc.s - 90, 104, sc.d - 10, sc.d + 10);
+      g.lineWidth = 1.5; g.strokeStyle = '#b98aff'; g.setLineDash([4, 6]);
+      traceOffset(sc.d - 10, sc.s - 90, 104); g.stroke(); traceOffset(sc.d + 10, sc.s - 90, 104); g.stroke();
+      g.setLineDash([]);
+    });
+    this.shortcuts.forEach((sc) => local(sc.s + 7, sc.d, () => {
+      g.fillStyle = '#1b1440'; g.fillRect(-8, -10, 16, 20);
+      for (let k = 0; k < 14; k += 3) { g.fillStyle = (k / 3) % 2 ? '#8a4dff' : '#b98aff'; g.fillRect(-7 + k, -9, Math.min(3, 14 - k), 18); }
+      g.fillStyle = '#ffffff'; g.fillRect(-1, -5, 2, 6); g.fillRect(-1, 3, 2, 2);
+    }));
     // スタートライン
     local(3, 0, () => {
       const w = this.def.roadW, sz = 4;
@@ -1975,8 +2385,9 @@ class Track {
         g.fillRect(4, -6, 1.5, 12); g.fillRect(1, -6, 4, 1.5); g.fillRect(1, 4.5, 4, 1.5);
       });
     }
-    const id = g.getImageData(0, 0, TEX, TEX);
-    this.tex = buildMips(new Uint32Array(id.data.buffer), TEX, 4);
+    const id = g.getImageData(0, 0, SZ, SZ);
+    if (this.hasElev) this.tintTerrain(id.data);
+    this.tex = buildMips(new Uint32Array(id.data.buffer), SZ, 4);
     const tc = materialTile(th.outer);
     const tid = tc.getContext('2d').getImageData(0, 0, 64, 64);
     this.tile = buildMips(new Uint32Array(tid.data.buffer.slice(0)), 64, 4);
@@ -2104,6 +2515,20 @@ class Track {
       for (let y = -8; y <= 8; y++) for (let x = -8; x <= 8; x++) if (x * x + y * y <= 64) set(qx + x, qy + y, x + y < 0 ? [120, 220, 255] : [60, 140, 220]);
       for (let i = 0; i < 160; i++) set(R() * SW, 90 + Math.floor(R() * 38), [255, 255, 255]);
     }
+    if (th.hills === 'ridge') {
+      // 夕焼けの山並みと、遠くの要塞のシルエット
+      for (let x = 0; x < SW; x++) {
+        fill(x, 64 + jag(x, 7, 0.2) * 26 + wave(x, 61, 10, [5, 13]), [120, 64, 104]);
+        fill(x, 90 + jag(x, 13, 0.6) * 14 + wave(x, 62, 6, [9, 21]), [78, 40, 82]);
+      }
+      for (let k = 0; k < 6; k++) {
+        const bx = Math.floor(R() * SW), bw = 10 + Math.floor(R() * 14), bh = 20 + Math.floor(R() * 24), base = 96;
+        for (let x = bx; x < bx + bw; x++) fill(x, base - bh, [58, 30, 64]);
+        for (let x = bx - 2; x < bx + bw + 2; x += 3) for (let y = base - bh - 4; y < base - bh; y++) set(x, y, [58, 30, 64]);
+        for (let y = base - bh + 5; y < base - 4; y += 6) set(bx + (bw >> 1), y, [255, 200, 110]);
+        set(bx + (bw >> 1), base - bh - 5, [201, 56, 74]); set(bx + (bw >> 1) + 1, base - bh - 5, [201, 56, 74]);
+      }
+    }
     if (th.hills === 'volcano') {
       for (let k = 0; k < 40; k++) {
         const px = SW * 0.62 + (R() - 0.5) * 40 + k * 0.5, py = 38 - k * 0.9, rr = 2 + k * 0.18;
@@ -2123,18 +2548,35 @@ class Track {
     g.lineJoin = 'round'; g.lineCap = 'round';
     const trace = () => {
       g.beginPath();
-      for (let i = 0; i < this.N; i += 2) { const x = this.X[i] * sc + ox, y = this.Y[i] * sc + oy; if (i === 0) g.moveTo(x, y); else g.lineTo(x, y); }
-      g.closePath();
+      let pen = false;
+      for (let i = 0; i <= this.N; i += 2) {
+        const j = i % this.N;
+        if (this.skip[j]) { pen = false; continue; }
+        const x = this.X[j] * sc + ox, y = this.Y[j] * sc + oy;
+        if (!pen) { g.moveTo(x, y); pen = true; } else g.lineTo(x, y);
+      }
+      if (!this.skipRanges.length) g.closePath();
     };
     g.strokeStyle = 'rgba(10,6,24,0.85)'; g.lineWidth = 9; trace(); g.stroke();
     g.strokeStyle = this.theme.miniOut; g.lineWidth = 7; trace(); g.stroke();
     g.strokeStyle = this.theme.mini; g.lineWidth = 4; trace(); g.stroke();
+    if (this.skipRanges.length) {
+      g.setLineDash([3, 4]); g.strokeStyle = '#ffd23f'; g.lineWidth = 2;
+      this.skipRanges.forEach((r) => { const a0 = this.pointAt(r.s, 0), a1 = this.pointAt(r.e, 0); g.beginPath(); g.moveTo(a0.x * sc + ox, a0.y * sc + oy); g.lineTo(a1.x * sc + ox, a1.y * sc + oy); g.stroke(); });
+      g.setLineDash([]);
+    }
     const a = this.pointAt(0, -this.halfRoad * 1.4), b = this.pointAt(0, this.halfRoad * 1.4);
     g.strokeStyle = '#ff3d7f'; g.lineWidth = 3; g.beginPath(); g.moveTo(a.x * sc + ox, a.y * sc + oy); g.lineTo(b.x * sc + ox, b.y * sc + oy); g.stroke();
     this.miniCanvas = c;
   }
 }
 const trackCache = new Map();
+const miniCache = new Map();
+function getMiniTrack(ci) {
+  for (const [k, t] of trackCache) if (k === String(ci) || k === ci + '') return t;
+  if (!miniCache.has(ci)) miniCache.set(ci, new Track(COURSES[ci], false, true));
+  return miniCache.get(ci);
+}
 function getTrack(ci, mirror) {
   const key = ci + (mirror ? 'm' : '');
   if (trackCache.has(key)) { const t = trackCache.get(key); trackCache.delete(key); trackCache.set(key, t); return t; }
@@ -2168,6 +2610,7 @@ class Kart {
     this.item = null; this.itemCount = 0; this.rouletteT = 0; this.rouletteItem = null;
     this.lastSafeS = gp.s; this.wrongT = 0; this.surf = 0; this.bumpCD = 0; this.steerVis = 0;
     this.zone = null; this.glideRef = null; this.bumpT = 0; this.ringCD = 0; this.prevShake = false; this.inWind = false;
+    this.gh = T.heightAt(gp.s); this.fly = null;
     this.inp = { steer: 0, accel: false, brake: false, drift: false, item: false };
     this.prevDrift = false; this.prevItem = false;
     this.ai = isPlayer ? null : new AI(this, race.demo ? 0.7 : cls.aiDrift);
@@ -2238,6 +2681,51 @@ class Kart {
     if (it === 'nitro3') { this.itemCount--; if (this.itemCount <= 0) { this.item = null; this.itemCount = 0; } }
     else { this.item = null; this.itemCount = 0; }
   }
+  startFly(kind, toS, outMul) {
+    const T = this.race.track;
+    const p1 = T.pointAt(toS, 0);
+    const h0 = T.heightAt(this.s) + Math.max(0, this.z), h1 = T.heightAt(toS);
+    const dist = Math.hypot(p1.x - this.x, p1.y - this.y);
+    const v = kind === 'cannon' ? 330 : Math.max(this.speed, 150);
+    this.fly = {
+      kind, x0: this.x, y0: this.y, x1: p1.x, y1: p1.y, h0, h1, a0: this.a, a1: p1.a,
+      s0: this.s, ds: T.sDelta(toS, this.s), d0: this.d, t: 0, dur: Math.max(0.7, dist / v),
+      arc: kind === 'cannon' ? 70 + dist * 0.12 : 24 + dist * 0.1, out: outMul,
+    };
+    this.airType = 6; this.z = 0.01; this.vz = 0; this.trick = false; this.airT = 0;
+    this.drift = 0; this.driftCharge = 0; this.driftLevel = 0; this.boostT = 0; this.spinT = 0;
+  }
+  updateFly(dt) {
+    const F = this.fly, T = this.race.track, R = this.race;
+    F.t += dt;
+    const u = Math.min(1, F.t / F.dur), e = u * u * (3 - 2 * u);
+    this.x = lerp(F.x0, F.x1, u); this.y = lerp(F.y0, F.y1, u);
+    this.a = wrapAngle(F.a0 + wrapAngle(F.a1 - F.a0) * e);
+    const ns = (F.s0 + F.ds * u) % T.len;
+    let ds = ns - this.prevS;
+    if (ds < -T.len / 2) ds += T.len; else if (ds > T.len / 2) ds -= T.len;
+    this.progress += ds; this.prevS = ns;
+    this.s = ns; this.ti = T.idxOf(ns); this.d = F.d0 * (1 - u);
+    const alt = lerp(F.h0, F.h1, u) + F.arc * 4 * u * (1 - u);
+    this.gh = T.heightAt(ns); this.z = alt - this.gh;
+    this.vx = (F.x1 - F.x0) / F.dur; this.vy = (F.y1 - F.y0) / F.dur;
+    this.airT += dt;
+    if (!this.finished) {
+      const done = Math.floor(this.progress / T.len);
+      if (done > this.lapsDone) { this.lapsDone = done; R.onLap(this); }
+    }
+    if (this.near() && Math.random() < 0.6) R.spawn(this.x, this.y, this.z, 0, 0, 0, 0.3, F.kind === 'cannon' ? '#ffb040' : '#b98aff', 1, 0);
+    if (u >= 1) {
+      this.fly = null; this.z = 0; this.vz = 0; this.airType = 2;
+      T.locate(this);
+      this.gh = T.heightAt(this.s); this.prevS = this.s; this.lastSafeS = this.s;
+      this.speed = Math.max(this.speed, this.maxSpeed * F.out);
+      this.vx = Math.cos(this.a) * this.speed; this.vy = Math.sin(this.a) * this.speed;
+      this.land(this.speed);
+      if (F.kind === 'cannon') this.boost(0.7, 1.28);
+      if (this.isPlayer) R.shake(0.5);
+    }
+  }
   startFall() {
     const R = this.race;
     this.fallT = 1.1; this.airType = 0; this.z = 0; this.vz = 0;
@@ -2250,11 +2738,13 @@ class Kart {
     const T = this.race.track;
     let s = this.lastSafeS - 10;
     for (const g of T.gaps.concat(T.glides)) { const ds = T.sSigned(s, g.s); if (ds > -140 && ds < g.len + 6) s = g.s + g.len + 16; }
+    for (const cn of T.cannons) { const ds = T.sSigned(s, cn.s); if (ds > -60 && ds < T.sDelta(cn.to, cn.s) + 6) s = cn.to + 20; }
     for (let k = 0; k < 6 && T.isPit(s, 0); k++) s += 20;
     const p = T.pointAt(s, 0);
     this.x = p.x; this.y = p.y; this.a = p.a; this.ti = T.idxOf(s);
     this.z = 34; this.vz = 0; this.airType = 3; this.speed = 0; this.vx = this.vy = 0;
     this.invulnT = 2; this.spinT = 0; this.stunT = 0; this.fallT = 0; this.glideRef = null; this.bumpT = 0;
+    this.gh = T.heightAt(s);
   }
   land(sp) {
     const t = this.airType, R = this.race;
@@ -2297,6 +2787,14 @@ class Kart {
     }
     const racing = R.phase === 'race' || R.phase === 'finish';
     if (!racing) { this.prevDrift = inp.drift; this.prevItem = inp.item; return; }
+    if (this.fly) {
+      // 大砲・ショートカットで飛行中（操作不可、トリックだけできる）
+      const dd = inp.drift && !this.prevDrift, sh = !!inp.shake && !this.prevShake;
+      this.prevDrift = inp.drift; this.prevItem = inp.item; this.prevShake = !!inp.shake;
+      if ((dd || sh) && !this.trick) { this.trick = true; this.trickA = 1; this.sfx('trick'); if (this.isPlayer && !R.demo) HUD.sub(sh ? 'ふってトリック！' : 'トリック！', 'good'); }
+      this.updateFly(dt);
+      return;
+    }
 
     const ctrl = this.spinT <= 0 && this.airType !== 3 && this.airType !== 4;
     const steer = ctrl ? inp.steer : 0;
@@ -2332,6 +2830,13 @@ class Kart {
       }
     }
     if (this.spinT > 0) this.speed *= Math.pow(0.2, dt);
+    // 坂：上りは減速、下りは加速（最高速も少し伸びる）
+    if (T.hasElev && onGround && this.speed > 0) {
+      const gr = T.gradeAt(this.s) * (Math.cos(this.a) * T.TX[this.ti] + Math.sin(this.a) * T.TY[this.ti]);
+      this.speed -= gr * 175 * dt;
+      if (gr < 0 && !boosting && accel) this.speed = Math.min(this.speed, maxV * (1 + clamp(-gr * 1.6, 0, 0.16)));
+      if (this.speed < 0) this.speed = 0;
+    }
 
     // --- ドリフト ---
     if (driftDown && onGround && ctrl && this.airType === 0 && sp > 20) {
@@ -2372,6 +2877,11 @@ class Kart {
     this.vx += (hx * this.speed - this.vx) * kk;
     this.vy += (hy * this.speed - this.vy) * kk;
     this.x += this.vx * dt; this.y += this.vy * dt;
+    // ベルトコンベア（地面にいる時だけ流される）
+    if (onGround && T.belts.length) {
+      const bv = T.beltAt(this.s, this.d);
+      if (bv) { this.x += T.TX[this.ti] * bv * dt; this.y += T.TY[this.ti] * bv * dt; }
+    }
     // 横風（左右にゆれる突風）
     const wf = T.winds.length ? T.windAt(this.s, R.raceTime) : 0;
     if (wf) { this.x += T.NX[this.ti] * wf * 0.4 * dt; this.y += T.NY[this.ti] * wf * 0.4 * dt; }
@@ -2404,6 +2914,22 @@ class Kart {
       if (done > this.lapsDone) { this.lapsDone = done; R.onLap(this); }
     }
     this.surf = T.surfaceAt(this.s, this.d);
+    if (T.hasElev) {
+      const nh = T.heightAt(this.s);
+      if (this.z > 0 || this.vz > 0) {
+        this.z -= nh - this.gh;
+        if (this.z <= 0) { this.z = 0; this.vz = 0; this.land(sp); }
+      } else if (this.airType === 0 && this.speed > 60 && this.spinT <= 0) {
+        // 丘のてっぺんをスピードで越えると浮く（空中ではトリック可）
+        const v = this.speed * (hx * T.TX[this.ti] + hy * T.TY[this.ti]);
+        if (v * v * T.curvHAt(this.s) < -GRAVITY * 0.42) {
+          this.z = 0.01; this.vz = Math.max(0, v * T.gradeAt(this.s)) + 12; this.airType = 2; this.airT = 0; this.trick = false;
+          if (this.drift !== 0) { this.drift = 0; this.driftCharge = 0; this.driftLevel = 0; }
+          this.sfx('hop');
+        }
+      }
+      this.gh = nh;
+    }
 
     // --- 壁 ---
     if (T.boundary === 'wall') {
@@ -2477,8 +3003,30 @@ class Kart {
     }
 
     // --- 地形ギミック ---
+    // 大砲：発射台の上なら少し浮いていても撃ち出す（飛び越えて落ちないように）
+    for (const cn of T.cannons) {
+      if (T.sDelta(this.s, cn.s - 22) < 28 && this.z < 24 && Math.abs(this.d) < T.halfRoad + T.curb + 6) {
+        this.startFly('cannon', cn.to, 1.12);
+        this.sfx('cannon');
+        if (this.isPlayer && !R.demo) { HUD.msg('ドーン！', 'go', 1.2); R.shake(1); }
+        return;
+      }
+    }
     if (this.z <= 0 && this.airType === 0) {
-      if (T.isPit(this.s, this.d)) { this.startFall(); return; }
+      for (const sc of T.shortcuts) {
+        if (T.sDelta(this.s, sc.s) < 14 && Math.abs(this.d - sc.d) < 10 && sp > 20) {
+          if (Math.max(sp, this.speed) >= this.maxSpeed * sc.need) {
+            this.startFly('sc', sc.to, 1.0);
+            this.sfx('shortcut');
+            if (this.isPlayer && !R.demo) HUD.sub('ショートカット！', 'good');
+            return;
+          }
+          if (this.z <= 0) { this.vz = 55; this.z = 0.01; this.airType = 2; this.airT = 0; this.trick = false; if (this.isPlayer && !R.demo) HUD.sub('スピードが足りない！', 'bad'); }
+          break;
+        }
+      }
+      if (this.airType !== 0) { /* ショートカット失敗の小ジャンプ */ }
+      else if (T.isPit(this.s, this.d)) { this.startFall(); return; }
       const rp = T.inRamp(this.s, this.d);
       if (rp && rp.glide && this.speed > 4) {
         // カイト発射
@@ -2591,6 +3139,17 @@ class AI {
     for (const mp of R.moverPos) hz(mp.s, mp.d, 7);
     let tgtLane = this.laneTarget, rate = 1.6;
     if (avoid) { tgtLane = clamp(avoid.d / T.halfRoad, -0.85, 0.85); rate = 5; this.laneTarget = tgtLane; this.laneT = Math.max(this.laneT, 0.8); }
+    if (!avoid && T.belts.length) {
+      for (const b of T.belts) {
+        const ds = T.sSigned(b.s, k.s);
+        if (ds < 180 && ds > -b.len) {
+          let bl = null;
+          for (const ln of b.lanes) if (!bl || ln.v > bl.v) bl = ln;
+          if (bl && this.driftSkill > 0.25) { tgtLane = clamp(((bl.d0 + bl.d1) / 2) / T.halfRoad, -0.85, 0.85); rate = 3; }
+          break;
+        }
+      }
+    }
     if (k.airType === 5) {
       let best = null;
       for (const rg of T.rings) { const ds = T.sSigned(rg.s, k.s); if (ds > 0 && ds < 170 && (!best || ds < best.ds)) best = { ds, d: rg.d }; }
@@ -2677,6 +3236,8 @@ class Race {
     this.boxes = this.track.boxes.map((b) => ({ x: b.x, y: b.y, s: b.s, d: b.d, active: !!cfg.items, t: 0 }));
     this.objs = []; this.parts = [];
     this.moverPos = []; this.windNote = false;
+    this.sections = (COURSES[cfg.course].sections && cfg.laps === 1) ? COURSES[cfg.course].sections : 0;
+    this.lastSec = 1;
     this.track.bumpers.forEach((b) => { b.lit = 0; });
     this.updateMovers();
     this.phase = this.demo ? 'race' : 'intro';
@@ -2873,6 +3434,7 @@ class Race {
     }
     if (this.objs.some((o) => o.dead)) this.objs = this.objs.filter((o) => !o.dead);
   }
+  sectionOf(k) { return clamp(Math.floor((k.progress / this.track.len) * this.sections) + 1, 1, this.sections); }
   // 動く障害物（フグ・ロボ・隕石）：コースを左右に往復
   updateMovers() {
     const T = this.track, mp = this.moverPos;
@@ -2940,6 +3502,15 @@ class Race {
     c.x = k.x - Math.cos(c.a) * c.dist;
     c.y = k.y - Math.sin(c.a) * c.dist;
     c.h = Renderer.baseCamH * (c.dist / CAM_DIST) + Math.max(0, k.z) * 0.45;
+    const T = this.track;
+    if (T.hasElev) {
+      const minA = T.hXY(c.x, c.y) + 7;
+      const tgt = Math.max(T.heightAt(k.s) + c.h, minA);
+      c.alt = c.alt == null || dt === 0 ? tgt : lerp(c.alt, tgt, Math.min(1, dt * 10));
+      if (c.alt < minA) c.alt = minA;
+      const pt = clamp(T.gradeAt(k.s + 30) * 0.3, -0.07, 0.07);
+      c.pitch = c.pitch == null || dt === 0 ? pt : lerp(c.pitch, pt, Math.min(1, dt * 3));
+    } else { c.alt = c.h; c.pitch = 0; }
     c.shake = Math.max(0, c.shake - dt * 2.5);
   }
   update(dt) {
@@ -2975,6 +3546,15 @@ class Race {
       AudioSys.setWater(p.zone === 'water' && this.phase !== 'finish');
       if (p.inWind && !this.windNote && this.phase === 'race') { this.windNote = true; HUD.sub('横風に注意！', 'bad'); AudioSys.sfx('gust'); }
       if (!p.inWind) this.windNote = false;
+      if (this.sections && !p.finished && this.phase === 'race') {
+        const sec = this.sectionOf(p);
+        if (sec > this.lastSec) {
+          this.lastSec = sec;
+          if (sec === this.sections) { HUD.msg('FINAL SECTION', 'final', 2); AudioSys.sfx('final'); Music.setTempo(1.1); }
+          else { HUD.msg(`SECTION ${sec}`, 'lap', 1.4); AudioSys.sfx('lap'); }
+          HUD.sub(`SECTION ${sec - 1}  ${fmtTime(this.raceTime * 1000)}`, 'info');
+        }
+      }
     }
     this.updateParts(dt);
     this.updatePositions();
@@ -3060,6 +3640,98 @@ const Renderer = {
     this.baseCamH = ((kartY - this.horizon) * CAM_DIST) / this.focal;
     this.flakes = [];
   },
+  // 高低差コース用：画面の列ごとに視線を飛ばして地形との交点を探す（丘の向こうは隠れる）
+  renderTerrain(T, cam, camAlt, hor, xc, ca, sa, focal) {
+    const W = this.W, H = this.H, buf = this.buf;
+    if (!this.depth || this.depth.length !== W * H) this.depth = new Float32Array(W * H);
+    const depth = this.depth;
+    const sky = T.sky, SW = sky.w, SH = sky.h, sb = sky.buf, angStep = SW / (TAU * focal), base = (cam.a / TAU) * SW;
+    const fog = T.fogRgb, fogP = pack(fog[0], fog[1], fog[2]);
+    const mips = T.tex, tiles = T.tile;
+    const G = T.hmG, cs = T.hmCell, hm = T.hm, Gm = G - 1.001;
+    const cx0 = cam.x, cy0 = cam.y;
+    const rel = Math.max(2, camAlt - T.hXY(cx0, cy0));
+    const z0 = Math.max(1.5, (0.5 * rel * focal) / Math.max(1, H - hor));
+    for (let x = 0; x < W; x++) {
+      const o = (x + 0.5 - xc) / focal, dx = ca - sa * o, dy = sa + ca * o;
+      let z = z0, y = H - 1, wx = 0, wy = 0, hh = 0, stp = 0;
+      for (; y >= 0; y--) {
+        const t = (y + 0.5 - hor) / focal;
+        for (;;) {
+          wx = cx0 + dx * z; wy = cy0 + dy * z;
+          let fx = wx / cs - 0.5, fy = wy / cs - 0.5;
+          if (fx < 0) fx = 0; else if (fx > Gm) fx = Gm;
+          if (fy < 0) fy = 0; else if (fy > Gm) fy = Gm;
+          const ix = fx | 0, iy = fy | 0, tx = fx - ix, ty = fy - iy, c = iy * G + ix;
+          const h = (hm[c] * (1 - tx) + hm[c + 1] * tx) * (1 - ty) + (hm[c + G] * (1 - tx) + hm[c + G + 1] * tx) * ty;
+          hh = h;
+          if (camAlt - t * z <= h) break;
+          stp = z < 50 ? 0.3 + z * 0.012 : z * 0.014;
+          z += stp;
+          if (z >= FAR) break;
+        }
+        if (z >= FAR) break;
+        const k = z / focal;
+        const lvl = k < 1.25 ? 0 : k < 2.5 ? 1 : k < 5 ? 2 : 3;
+        const m = mips[lvl], tl = tiles[lvl], inv = 1 / (1 << lvl), ms = m.size;
+        const u = wx * inv, v = wy * inv;
+        let c;
+        const alt = camAlt - t * z;
+        if (hh - alt > 2.4 + Math.abs(t) * stp * 1.6 + z * 0.012) {
+          // 崖の面：岩の地層模様（高い所は雪）
+          const band = ((alt * 0.35) | 0) & 1, dark = z < 120 ? 0 : 1;
+          c = alt > (T.def.snowLine || 172) + 13 ? (band ? 0xfff0e2d6 : 0xfffae9e0) : (band ^ dark ? 0xff6a5a62 : 0xff7c6c74);
+        } else c = (u >= 0 && v >= 0 && u < ms && v < ms) ? m.data[(v | 0) * ms + (u | 0)] : tl.data[((v | 0) & tl.mask) * tl.size + ((u | 0) & tl.mask)];
+        if (z > FOG_START) {
+          let f = Math.min(1, (z - FOG_START) / (FAR - FOG_START)); f = f * f * (3 - 2 * f);
+          const fa = Math.round(f * 256), ia = 256 - fa;
+          c = ((255 << 24) | ((((c >> 16) & 255) * ia + fog[2] * fa) >> 8 << 16) | ((((c >> 8) & 255) * ia + fog[1] * fa) >> 8 << 8) | (((c & 255) * ia + fog[0] * fa) >> 8)) >>> 0;
+        }
+        buf[y * W + x] = c; depth[x * H + y] = z;
+      }
+      const ix = ((Math.floor(base + (x - xc) * angStep) % SW) + SW) % SW;
+      for (; y >= 0; y--) {
+        const sy = SH - 1 - (hor - y);
+        buf[y * W + x] = sy < 0 ? sky.top : sy >= SH ? fogP : sb[sy * SW + ix];
+        depth[x * H + y] = 1e9;
+      }
+    }
+  },
+  // ベルトコンベアの矢印（前へ進むレーンは黄色、後ろへ戻るレーンはピンク）
+  drawBelts(T, race, proj, tmp, elev, time) {
+    const ctx = this.ctx, W = this.W, H = this.H, cam = race.cam, q = {};
+    const P = [];
+    for (const b of T.belts) {
+      const mid = T.pointAt(b.s + b.len / 2, 0);
+      if ((mid.x - cam.x) ** 2 + (mid.y - cam.y) ** 2 > (FAR * 0.6 + b.len / 2) ** 2) continue;
+      const hb = T.heightAt(b.s + b.len / 2);
+      for (const ln of b.lanes) {
+        const dir = sign(ln.v), gap = 12, n = Math.floor(b.len / gap);
+        const off = (((time * Math.abs(ln.v)) % gap) + gap) % gap;
+        const dm = (ln.d0 + ln.d1) / 2, hw = (ln.d1 - ln.d0) / 2 - 2.5;
+        ctx.fillStyle = dir > 0 ? '#ffd23f' : '#ff3d7f';
+        for (let k = 0; k < n; k++) {
+          const sp = b.s + ((k * gap + dir * off + b.len * 4) % b.len);
+          const shape = [[3.5, 0], [-1.5, hw], [-4.5, hw], [0.5, 0], [-4.5, -hw], [-1.5, -hw]];
+          P.length = 0;
+          let ok = true, zc = 0;
+          for (const [ds, dd] of shape) {
+            T.pointAt(sp + ds * dir, dm + dd, q);
+            if (!proj(q.x, q.y, 0.2, elev ? T.heightAt(sp) : hb * 0)) { ok = false; break; }
+            P.push(tmp.sx, tmp.sy); zc = tmp.z;
+          }
+          if (!ok) continue;
+          if (elev && this.depth) {
+            const cx = clamp(Math.round(P[0]), 0, W - 1), cy = clamp(Math.round(P[1]), 0, H - 1);
+            if (this.depth[cx * H + cy] < zc - 4) continue;
+          }
+          ctx.beginPath(); ctx.moveTo(P[0], P[1]);
+          for (let i = 2; i < P.length; i += 2) ctx.lineTo(P[i], P[i + 1]);
+          ctx.closePath(); ctx.fill();
+        }
+      }
+    }
+  },
   render(race, dt) {
     this.time += dt;
     const W = this.W, H = this.H, buf = this.buf, ctx = this.ctx;
@@ -3067,9 +3739,12 @@ const Renderer = {
     const T = race.track, cam = race.cam;
     let shx = 0, shy = 0;
     if (cam.shake > 0) { shx = (Math.random() - 0.5) * cam.shake * 6; shy = Math.round((Math.random() - 0.5) * cam.shake * 5); }
-    const hor = this.horizon + shy;
+    const elev = !!T.hasElev;
+    const hor = this.horizon + shy + (elev ? Math.round((cam.pitch || 0) * this.focal) : 0);
     const xc = W / 2 + shx;
-    const ca = Math.cos(cam.a), sa = Math.sin(cam.a), focal = this.focal, camH = cam.h;
+    const ca = Math.cos(cam.a), sa = Math.sin(cam.a), focal = this.focal, camH = elev ? cam.alt : cam.h;
+    if (elev) this.renderTerrain(T, cam, camH, hor, xc, ca, sa, focal);
+    else {
     // --- 空 ---
     const sky = T.sky, SW = sky.w, SH = sky.h, sb = sky.buf;
     const angStep = SW / (TAU * focal);
@@ -3115,16 +3790,19 @@ const Renderer = {
         }
       }
     }
+    }
     ctx.putImageData(this.img, 0, 0);
 
     // --- スプライト ---
     const list = this.list; list.length = 0;
     const tmp = { sx: 0, sy: 0, s: 0, z: 0 };
-    const proj = (wx, wy, wz) => {
+    // base：その地点の地面の高さ（省略時は地形から求める）
+    const proj = (wx, wy, wz, base) => {
       const dx = wx - cam.x, dy = wy - cam.y, z = dx * ca + dy * sa;
       if (z < 3 || z > FAR) return false;
       const s = focal / z;
-      tmp.sx = xc + (-dx * sa + dy * ca) * s; tmp.sy = hor + (camH - wz) * s; tmp.s = s; tmp.z = z;
+      const gb = elev ? (base !== undefined ? base : T.hXY(wx, wy)) : 0;
+      tmp.sx = xc + (-dx * sa + dy * ca) * s; tmp.sy = hor + (camH - gb - wz) * s; tmp.s = s; tmp.z = z;
       return true;
     };
     const fade = (z) => (z > FAR * 0.8 ? clamp((FAR - z) / (FAR * 0.2), 0, 1) : 1);
@@ -3137,7 +3815,7 @@ const Renderer = {
     for (const d of T.deco) {
       const sp = D[d.t];
       const fly = sp.fly ? sp.fly + (sp.bob ? Math.sin(time * 1.3 + d.ph) * sp.bob : 0) : 0;
-      if (!proj(d.x, d.y, fly)) continue;
+      if (!proj(d.x, d.y, fly, d.h)) continue;
       let fr;
       if (sp.bumper) fr = sp.frames[d.bumper && d.bumper.lit > race.t ? 1 : 0];
       else if (sp.anim) fr = sp.frames[Math.floor(time / sp.anim + d.ph) % sp.frames.length];
@@ -3147,7 +3825,7 @@ const Renderer = {
       addImg(fr, tmp.z, tmp.sx - w / 2, tmp.sy - h, w, h, fade(tmp.z) * clamp((tmp.z - 6) / 16, 0.3, 1));
     }
     for (const b of race.boxes) {
-      if (!b.active || !proj(b.x, b.y, 0)) continue;
+      if (!b.active || !proj(b.x, b.y, 0, T.heightAt(b.s))) continue;
       const s = tmp.s, z = tmp.z, gx = tmp.sx, gy = tmp.sy;
       const sw = 6 * s;
       addImg(Gfx.shadow, z + 0.2, gx - sw / 2, gy - sw * 0.18, sw, sw * 0.375, 0.8);
@@ -3156,7 +3834,7 @@ const Renderer = {
       addImg(fr, z, gx - w / 2, gy - bob - h, w, h, fade(z));
     }
     for (const o of race.objs) {
-      if (!proj(o.x, o.y, 0)) continue;
+      if (!proj(o.x, o.y, 0, T.heightAt(o.s))) continue;
       const s = tmp.s, z = tmp.z, gx = tmp.sx, gy = tmp.sy;
       if (o.type === 'oil') { const w = 13 * s, h = w * (8 / 22); addImg(Gfx.oil, z + 0.3, gx - w / 2, gy - h / 2, w, h, 1); continue; }
       const sw = 5 * s;
@@ -3166,7 +3844,7 @@ const Renderer = {
     }
     // 動く障害物
     for (const m of race.moverPos) {
-      if (!proj(m.x, m.y, 0)) continue;
+      if (!proj(m.x, m.y, 0, T.heightAt(m.s))) continue;
       const s = tmp.s, z = tmp.z, gx = tmp.sx, gy = tmp.sy;
       const frames = Gfx.movers[m.kind] || Gfx.movers.robot;
       const fr = frames[Math.floor(time * (m.kind === 'puffer' ? 1.5 : 6)) & 1];
@@ -3177,12 +3855,12 @@ const Renderer = {
     }
     // 空中リング
     for (const rg of T.rings) {
-      if (!proj(rg.x, rg.y, rg.z)) continue;
+      if (!proj(rg.x, rg.y, rg.z, T.heightAt(rg.s))) continue;
       const w = 13 * tmp.s;
       addImg(Gfx.ring[Math.floor(time * 6) & 1], tmp.z, tmp.sx - w / 2, tmp.sy - w / 2, w, w, fade(tmp.z));
     }
     const drawKart = (x, y, z, a, ci, extra) => {
-      if (!proj(x, y, 0)) return null;
+      if (!proj(x, y, 0, extra.base)) return null;
       const s = tmp.s, dz = tmp.z, gx = tmp.sx, gy = tmp.sy;
       const view = Math.atan2(y - cam.y, x - cam.x);
       const rel = wrapAngle(a - view);
@@ -3190,7 +3868,7 @@ const Renderer = {
       const w = KART_WORLD * s;
       const sw = 10 * s;
       if (extra.shadow) addImg(Gfx.shadow, dz + 0.3, gx - sw / 2, gy - sw * 0.2, sw, sw * 0.375, extra.alpha * 0.9);
-      const e = { k: 0, img: Gfx.karts[ci][idx], z: dz, x: gx - w / 2, y: gy - Math.max(-8, z) * s - KART_ANCHOR * w + (extra.bump || 0), w, h: w, a: extra.alpha };
+      const e = { k: 0, img: Gfx.karts[ci][idx], z: dz, x: gx - w / 2, y: gy - (extra.fly ? z : Math.max(-8, z)) * s - KART_ANCHOR * w + (extra.bump || 0), w, h: w, a: extra.alpha };
       if (!(e.x > W || e.x + w < 0 || e.y > H)) list.push(e);
       return { gx, gy: gy - Math.max(0, z) * s, s, z: dz, w };
     };
@@ -3204,8 +3882,9 @@ const Renderer = {
       if (k.invulnT > 0 && k.fallT <= 0 && Math.floor(time * 16) % 2 === 0) alpha = 0.35;
       const vis = k.a + k.spinA + k.trickA * TAU + k.steerVis * 0.3 + k.drift * 0.45;
       const bump = (k.surf === 2 && k.z <= 0 && Math.abs(k.speed) > 30 && Math.floor(time * 20) % 2) ? 1 : 0;
-      const r = drawKart(k.x, k.y, k.z, vis, k.ci, { alpha, shadow: k.fallT <= 0, bump });
-      if (r && k.airType === 5 && proj(k.x, k.y, k.z + 7.5)) {
+      const kb = elev ? T.heightAt(k.s) : 0;
+      const r = drawKart(k.x, k.y, k.z, vis, k.ci, { alpha, shadow: k.fallT <= 0 && !k.fly, bump, base: kb, fly: !!k.fly });
+      if (r && k.airType === 5 && proj(k.x, k.y, k.z + 7.5, kb)) {
         const kw = 17 * tmp.s, kh = kw * (14 / 30);
         addImg(Gfx.kite, tmp.z - 0.2, tmp.sx - kw / 2, tmp.sy - kh, kw, kh, alpha);
       }
@@ -3216,9 +3895,26 @@ const Renderer = {
       const sz = clamp(Math.round(p.size * tmp.s * 0.7), 1, 7);
       list.push({ k: 1, z: tmp.z - 0.1, x: Math.round(tmp.sx - sz / 2), y: Math.round(tmp.sy - sz / 2), w: sz, col: p.col, a: clamp(p.life / p.max * 2, 0, 1) });
     }
+    if (T.belts.length) this.drawBelts(T, race, proj, tmp, elev, time);
     list.sort((a, b) => b.z - a.z);
+    const depth = this.depth;
     for (let i = 0; i < list.length; i++) {
       const e = list[i];
+      if (elev) {
+        // 手前の地形（丘など）に隠れる部分を切り取る
+        const cx = clamp(Math.round(e.k === 2 ? e.x : e.x + (e.w || 0) / 2), 0, W - 1), col = cx * H;
+        const top = Math.max(0, Math.ceil(e.k === 2 ? e.y - e.r : e.y));
+        let clip = Math.min(H, Math.floor(e.k === 2 ? e.y + e.r : e.k === 1 ? e.y + e.w : e.y + e.h));
+        while (clip - 1 >= top && depth[col + clip - 1] < e.z - 4) clip--;
+        if (clip <= top) continue;
+        if (e.k === 0 && clip < e.y + e.h - 0.5) {
+          const fr = (clip - e.y) / e.h;
+          if (fr <= 0) continue;
+          ctx.globalAlpha = e.a;
+          ctx.drawImage(e.img, 0, 0, e.img.width, Math.max(1, Math.round(e.img.height * fr)), Math.round(e.x), Math.round(e.y), Math.max(1, Math.round(e.w)), Math.max(1, Math.round(e.h * fr)));
+          continue;
+        }
+      }
       ctx.globalAlpha = e.a;
       if (e.k === 0) ctx.drawImage(e.img, Math.round(e.x), Math.round(e.y), Math.max(1, Math.round(e.w)), Math.max(1, Math.round(e.h)));
       else if (e.k === 1) { ctx.fillStyle = e.col; ctx.fillRect(e.x, e.y, e.w, e.w); }
@@ -3381,8 +4077,13 @@ const HUD = {
     const E = this.el;
     const t = race.phase === 'intro' || race.phase === 'countdown' ? 0 : (p.finished ? p.finishTime : race.raceTime);
     this.set('time', fmtTime(t * 1000), (v) => { E.time.textContent = v; });
-    const lap = clamp(p.lapsDone + 1, 1, race.laps);
-    this.set('lap', lap, (v) => { E.lap.innerHTML = `LAP <b>${v}</b><span>/${race.laps}</span>`; });
+    if (race.sections) {
+      const sec = race.sectionOf(p);
+      this.set('lap', 'S' + sec, () => { E.lap.innerHTML = `SEC <b>${sec}</b><span>/${race.sections}</span>`; });
+    } else {
+      const lap = clamp(p.lapsDone + 1, 1, race.laps);
+      this.set('lap', lap, (v) => { E.lap.innerHTML = `LAP <b>${v}</b><span>/${race.laps}</span>`; });
+    }
     this.set('pos', p.place, (v) => {
       E.pos.innerHTML = `<b>${v}</b><span>${ordinal(v)}</span>`;
       E.pos.className = 'hud-pos p' + Math.min(v, 4);
@@ -3653,7 +4354,7 @@ const UI = {
       const minis = cp.courses.map((ci) => `<canvas width="128" height="128" data-cupmini="${ci}"></canvas>`).join('');
       return `<button class="cup-card" data-act="cup" data-i="${i}" style="--cc:${cp.color}"><span class="cup-name">${cp.name}<small>${cp.en}</small></span><span class="cup-minis">${minis}</span><span class="cup-courses">${cp.courses.map((ci) => COURSES[ci].name).join(' / ')}</span>${tr ? `<img class="tr" alt="${tr}位" src="${this.trophyURL[tr]}">` : ''}</button>`;
     }).join('');
-    $$('#cup-list canvas').forEach((cv) => { cv.getContext('2d').drawImage(getTrack(+cv.dataset.cupmini, false).miniCanvas, 0, 0); });
+    $$('#cup-list canvas').forEach((cv) => { cv.getContext('2d').drawImage(getMiniTrack(+cv.dataset.cupmini).miniCanvas, 0, 0); });
     $$('#cup-list .cup-card').forEach((b) => b.addEventListener('focus', () => { if (this.cur === 'cup') this.selectCup(+b.dataset.i); }));
     this.selectCup(this.cupSel);
     const cur = $(`#cup-list [data-i="${this.cupSel}"]`);
@@ -3669,13 +4370,16 @@ const UI = {
     Game.startGP(this.cupSel);
   },
   buildCourseGrid() {
-    $('#course-grid').innerHTML = CUPS.map((cp) => `<div class="cup-head" style="--cc:${cp.color}">${cp.name}<small>${cp.en}</small></div>` + cp.courses.map((i) => { const c = COURSES[i]; return `<button class="course-card" data-act="course" data-i="${i}"><canvas width="128" height="128" data-mini="${i}"></canvas><span class="c-jp">${c.name}</span><span class="c-en">${c.en}</span></button>`; }).join('')).join('');
+    const card = (i, cls) => { const c = COURSES[i]; return `<button class="course-card${cls || ''}" data-act="course" data-i="${i}"><canvas width="128" height="128" data-mini="${i}"></canvas><span class="c-jp">${c.name}</span><span class="c-en">${c.en}</span></button>`; };
+    const specials = COURSES.map((c, i) => (c.special ? i : -1)).filter((i) => i >= 0);
+    $('#course-grid').innerHTML = CUPS.map((cp) => `<div class="cup-head" style="--cc:${cp.color}">${cp.name}<small>${cp.en}</small></div>` + cp.courses.map((i) => card(i)).join('')).join('')
+      + (specials.length ? `<div class="cup-head special-head" style="--cc:#ff8a2a">スペシャル<small>SPECIAL・フリーラン限定</small></div>` + specials.map((i) => card(i, ' special')).join('') : '');
     $$('#course-grid .course-card').forEach((b) => b.addEventListener('focus', () => { if (this.cur === 'course') this.selectCourse(+b.dataset.i); }));
   },
   ensureMinis() {
     if (this.minisDone) return;
     $$('#course-grid canvas').forEach((cv) => {
-      const t = getTrack(+cv.dataset.mini, false);
+      const t = getMiniTrack(+cv.dataset.mini);
       cv.getContext('2d').drawImage(t.miniCanvas, 0, 0);
     });
     this.minisDone = true;
@@ -3683,6 +4387,8 @@ const UI = {
   onCourse() {
     this.ensureMinis();
     const ta = this.flow.mode === 'ta';
+    $('#course-grid').classList.toggle('no-special', ta);
+    if (ta && COURSES[this.courseSel].special) this.courseSel = 0;
     $('#course-title').textContent = ta ? 'タイムアタック：コースをえらぶ' : 'フリーラン：コースをえらぶ';
     $('#course-opts').style.display = ta ? 'none' : '';
     this.updateCourseOpts();
@@ -3693,17 +4399,22 @@ const UI = {
   },
   selectCourse(i) {
     this.courseSel = i;
+    if (this.cur === 'course') this.updateCourseOpts();
     const c = COURSES[i];
     $$('#course-grid .course-card').forEach((b) => b.classList.toggle('sel', +b.dataset.i === i));
     const rec = Store.data.records[c.id];
     const best = rec && rec.best ? fmtTime(rec.best) : `-'--"--`;
     const lap = rec && rec.lap ? fmtTime(rec.lap) : `-'--"--`;
     const ghost = this.flow.mode === 'ta' && Store.getGhost(c.id) ? '<span class="tag">ゴーストあり</span>' : '';
-    $('#course-info').innerHTML = `<p>${c.desc}</p><p class="rec">ベストタイム <b>${best}</b>　ベストラップ <b>${lap}</b> ${ghost}</p>`;
+    $('#course-info').innerHTML = c.special
+      ? `<p>${c.desc}</p><p class="rec">全長は通常コースの約3.5倍・3セクション構成（タイムアタック対象外）</p>`
+      : `<p>${c.desc}</p><p class="rec">ベストタイム <b>${best}</b>　ベストラップ <b>${lap}</b> ${ghost}</p>`;
   },
   updateCourseOpts() {
     const f = this.flow;
-    $('#opt-laps').textContent = `周回：${f.laps}`;
+    const sp = COURSES[this.courseSel] && COURSES[this.courseSel].laps;
+    $('#opt-laps').textContent = sp ? `周回：${sp}（固定）` : `周回：${f.laps}`;
+    $('#opt-laps').disabled = !!sp;
     $('#opt-cpu').textContent = `CPU：${f.cpu}台`;
     $('#opt-items').textContent = `アイテム：${f.items ? 'あり' : 'なし'}`;
   },
@@ -3760,7 +4471,7 @@ const UI = {
   },
   /* --- 記録 --- */
   onRecords() {
-    const rows = COURSES.map((c) => {
+    const rows = COURSES.filter((c) => !c.special).map((c) => {
       const r = Store.data.records[c.id] || {};
       return `<tr><th>${c.name}</th><td>${r.best ? fmtTime(r.best) : `-'--"--`}</td><td>${r.lap ? fmtTime(r.lap) : `-'--"--`}</td><td>${r.char != null ? `<img alt="" src="${Gfx.charIcon[r.char]}">` : ''}</td></tr>`;
     }).join('');
@@ -3827,7 +4538,8 @@ const UI = {
 const Game = {
   state: 'boot', race: null, demo: null, paused: false, gp: null, lastCfg: null,
   makeDemo() {
-    const ci = Math.floor(Math.random() * COURSES.length);
+    const normal = COURSES.map((c, i) => (c.special ? -1 : i)).filter((i) => i >= 0);
+    const ci = normal[Math.floor(Math.random() * normal.length)];
     this.demo = new Race({ demo: true, mode: 'demo', cls: 1, mirror: false, course: ci, laps: 99, items: true, grid: shuffle(CHARS.map((c, i) => i)), player: -1 });
   },
   loading(on) { $('#loading').classList.toggle('show', on); },
@@ -3886,7 +4598,8 @@ const Game = {
   startVS() {
     const f = UI.flow;
     const others = shuffle(CHARS.map((c, i) => i).filter((i) => i !== f.char)).slice(0, f.cpu);
-    this.startRace({ mode: 'vs', cls: f.cls, mirror: !!CLASSES[f.cls].mirror, course: f.course, laps: f.laps, items: f.items, grid: others.concat([f.char]), player: f.char });
+    const cd = COURSES[f.course];
+    this.startRace({ mode: 'vs', cls: f.cls, mirror: !!CLASSES[f.cls].mirror, course: f.course, laps: cd.laps || f.laps, items: f.items, grid: others.concat([f.char]), player: f.char });
   },
   startTA() {
     const f = UI.flow;
